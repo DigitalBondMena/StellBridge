@@ -1,0 +1,39 @@
+<div class="tt-section padding-top-xlg-140 padding-bottom-xlg-120">
+  <div class="tt-section-inner tt-wrap">
+    <div class="tt-row">
+      <div class="tt-col-lg-5">
+        <div class="tt-heading tt-heading-xlg">
+          <h2 class="tt-heading-title tt-text-reveal">
+            {{ mainTitle }}
+            <p style="color: var(--tt-main-color); display: inline">
+              <!-- {{ coloredTitle }} -->
+            </p>
+          </h2>
+        </div>
+      </div>
+
+      <div class="tt-col-lg-7 tt-align-self-center">
+        <div
+          [innerHTML]="description | safeHtml"
+          style="
+            text-align: justify;
+            color: white;
+            hyphens: auto;
+            word-spacing: normal;
+            margin: 0;
+          "
+          class="description text-xxlg font-500 tt-text-reveal"
+        ></div>
+
+        <div class="magnetic-wrap">
+          <a
+            [routerLink]="['/about-us']"
+            class="main-button tt-btn margin-top-40 tt-magnetic-item tt-anim-fadeinup"
+          >
+            <span data-hover="Read More">Read More</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

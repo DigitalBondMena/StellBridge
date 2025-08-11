@@ -1,0 +1,211 @@
+/* Animation Container */
+.animate-container {
+  overflow: hidden;
+}
+
+/* Base Animation Classes */
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  animation: slideUpReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Keyframe Animation */
+@keyframes slideUpReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered Animation Delays */
+.animate-slide-up[data-delay="100"] {
+  animation-delay: 0.1s;
+}
+
+.animate-slide-up[data-delay="200"] {
+  animation-delay: 0.2s;
+}
+
+.animate-slide-up[data-delay="300"] {
+  animation-delay: 0.3s;
+}
+
+.animate-slide-up[data-delay="400"] {
+  animation-delay: 0.4s;
+}
+
+.animate-slide-up[data-delay="500"] {
+  animation-delay: 0.5s;
+}
+
+.animate-slide-up[data-delay="550"] {
+  animation-delay: 0.55s;
+}
+
+.animate-slide-up[data-delay="600"] {
+  animation-delay: 0.6s;
+}
+
+.animate-slide-up[data-delay="650"] {
+  animation-delay: 0.65s;
+}
+
+.animate-slide-up[data-delay="700"] {
+  animation-delay: 0.7s;
+}
+
+/* Enhanced Animations for Specific Elements */
+.ph-caption-subtitle.animate-slide-up {
+  transform: translateY(40px);
+  animation-duration: 1s;
+}
+
+.ph-caption-title.animate-slide-up {
+  transform: translateY(50px);
+  animation-duration: 1.1s;
+}
+
+.ph-caption-description.animate-slide-up {
+  transform: translateY(45px);
+  animation-duration: 1.15s;
+}
+
+/* Social Links Animation */
+.ph-social.animate-slide-up {
+  transform: translateY(50px);
+}
+
+.ph-social ul li.animate-slide-up {
+  transform: translateY(30px);
+  animation-duration: 0.8s;
+}
+
+.ph-social ul li.animate-slide-up:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+/* Scroll Down Animation */
+.tt-scroll-down.animate-slide-up {
+  transform: translateY(40px);
+  animation-duration: 1.3s;
+}
+
+/* Fade In Animation Alternative */
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale Animation for Interactive Elements */
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.9) translateY(30px);
+  animation: scaleUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes scaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive Animation Adjustments */
+@media (max-width: 768px) {
+  .animate-slide-up {
+    transform: translateY(40px);
+    animation-duration: 1s;
+  }
+
+  .ph-caption-title.animate-slide-up,
+  .ph-caption-subtitle.animate-slide-up {
+    transform: translateY(30px);
+    animation-duration: 0.9s;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-fade-in,
+  .animate-scale {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Loading State */
+.animate-container.loading .animate-slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  animation-play-state: paused;
+}
+
+/* Enhanced Hover Effects */
+.animate-slide-up:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* Smooth Transitions for Interactive Elements */
+.ph-social ul li a,
+.tt-scroll-down-inner {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Additional Animation Classes for Future Use */
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideLeftReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideLeftReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideRightReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes slideRightReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

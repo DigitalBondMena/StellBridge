@@ -1,0 +1,1033 @@
+/* =================================================
+   Scroll-Based Navbar Behavior
+   ================================================= */
+
+/* Base navbar styles with transitions */
+#tt-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+  background: transparent;
+}
+
+/* Navbar with background when scrolled */
+#tt-header.navbar-scrolled {
+  background: #121212;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide navbar when scrolling down */
+#tt-header.navbar-hidden {
+  transform: translateY(-100%);
+}
+
+/* Show navbar when scrolling up */
+#tt-header.navbar-visible {
+  transform: translateY(0);
+}
+
+/* Ensure smooth transitions for navbar content */
+.navbar-container {
+  transition: all 0.3s ease;
+}
+
+/* Add subtle backdrop blur effect when scrolled */
+#tt-header.navbar-scrolled .navbar-container {
+  background-color: #0a0a0a;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Adjust logo and text colors for better visibility on dark background */
+#tt-header.navbar-scrolled .tt-logo {
+  opacity: 1;
+}
+
+/* Ensure proper z-index stacking for scrolled state */
+#tt-header.navbar-scrolled {
+  z-index: 10000;
+}
+
+/* Mobile-specific scroll adjustments */
+@media (max-width: 1024px) {
+  #tt-header {
+    background: #121212; /* Always show background on mobile */
+  }
+
+  #tt-header.navbar-scrolled {
+    background: #121212;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* =================================================
+   Original Mobile Menu Fixes for Small Screens
+   ================================================= */
+
+/* Mobile Menu Fixes for Small Screens */
+
+/* Ensure mobile menu toggle button is visible on small screens */
+#tt-m-menu-toggle-btn-wrap {
+  display: block;
+  z-index: 9999;
+}
+
+@media (max-width: 1024px) {
+  /* Make sure mobile menu toggle is always visible on mobile */
+  #tt-m-menu-toggle-btn-wrap {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Hide desktop menu on mobile */
+  .tt-main-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background: var(--tt-dark-bg, #1a1a1a);
+    z-index: 9998;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    padding-top: 80px;
+  }
+
+  /* Show menu when mobile menu is opened */
+  :global(body.tt-m-menu-opened) .tt-main-menu {
+    left: 0;
+  }
+
+  /* Style menu items for mobile */
+  .tt-main-menu .tt-main-menu-list {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .tt-main-menu .tt-main-menu-list li {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .tt-main-menu .tt-main-menu-list li a {
+    display: block;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Mobile submenu styles */
+  .tt-submenu {
+    position: static !important;
+    display: none !important;
+    background: rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+
+  .tt-submenu.mobile-visible {
+    display: block !important;
+  }
+
+  .tt-submenu .tt-submenu-list {
+    padding: 10px 0;
+  }
+
+  .tt-submenu .tt-submenu-list li a {
+    padding: 10px 30px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Mobile menu toggle button active state */
+.tt-m-menu-toggle-btn-active .tt-m-menu-toggle-btn {
+  background: var(--tt-accent-color, #a01717);
+}
+
+/* Prevent body scroll when mobile menu is open */
+:global(body.tt-m-menu-opened) {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
+/* Ensure header is always visible on mobile */
+@media (max-width: 768px) {
+  #tt-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--tt-dark-bg, #1a1a1a);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Add padding to body to account for fixed header */
+  :global(body) {
+    padding-top: 80px;
+  }
+
+  /* Mobile menu button styling */
+  .tt-m-menu-toggle-btn {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  .tt-m-menu-toggle-btn span,
+  .tt-m-menu-toggle-btn span::before,
+  .tt-m-menu-toggle-btn span::after {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--tt-text-color, #ffffff);
+    transition: all 0.3s ease;
+  }
+
+  .tt-m-menu-toggle-btn span {
+    position: relative;
+  }
+
+  .tt-m-menu-toggle-btn span::before,
+  .tt-m-menu-toggle-btn span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .tt-m-menu-toggle-btn span::before {
+    top: -8px;
+  }
+
+  .tt-m-menu-toggle-btn span::after {
+    top: 8px;
+  }
+
+  /* Hamburger to X animation */
+  .tt-m-menu-toggle-btn-active .tt-m-menu-toggle-btn span {
+    background: transparent;
+  }
+
+  .tt-m-menu-toggle-btn-active .tt-m-menu-toggle-btn span::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  .tt-m-menu-toggle-btn-active .tt-m-menu-toggle-btn span::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+}
+
+/* Ensure proper z-index stacking */
+.tt-header-inner {
+  position: relative;
+  z-index: 10000;
+}
+
+/* Style switcher positioning fix */
+.tt-style-switch {
+  position: relative;
+  z-index: 10001;
+}
+
+/* =================================================
+   Responsive Navbar with Offcanvas Mobile Menu
+   ================================================= */
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+/* Desktop Menu - Show by default */
+.desktop-menu {
+  display: block;
+}
+
+/* Mobile Menu - Hidden by default */
+.mobile-offcanvas {
+  display: none;
+}
+
+/* Desktop Contact Button - Hide on mobile */
+.hide-from-xlg {
+  display: inline-block;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 1024px) {
+  /* Hide desktop menu on mobile */
+  .desktop-menu {
+    display: none !important;
+  }
+
+  /* Hide desktop contact button on mobile */
+  .hide-from-xlg {
+    display: none !important;
+  }
+
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Mobile Menu Toggle Button Styles */
+  .tt-m-menu-toggle-btn {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .tt-m-menu-toggle-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--tt-text-color, #ffffff);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .tt-m-menu-toggle-btn span::before,
+  .tt-m-menu-toggle-btn span::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--tt-text-color, #ffffff);
+    transition: all 0.3s ease;
+    left: 0;
+  }
+
+  .tt-m-menu-toggle-btn span::before {
+    top: -8px;
+  }
+
+  .tt-m-menu-toggle-btn span::after {
+    top: 8px;
+  }
+
+  /* Hamburger to X Animation */
+  .tt-m-menu-toggle-btn.active span {
+    background: transparent;
+  }
+
+  .tt-m-menu-toggle-btn.active span::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  .tt-m-menu-toggle-btn.active span::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+
+  /* Mobile Menu Toggle Text */
+  .tt-m-menu-toggle-btn-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--tt-text-color, #ffffff);
+  }
+
+  .tt-m-menu-text-close {
+    display: none;
+  }
+
+  .tt-m-menu-toggle-btn.active
+    ~ .tt-m-menu-toggle-btn-text
+    .tt-m-menu-text-menu {
+    display: none;
+  }
+
+  .tt-m-menu-toggle-btn.active
+    ~ .tt-m-menu-toggle-btn-text
+    .tt-m-menu-text-close {
+    display: inline;
+  }
+}
+
+/* Mobile Offcanvas Menu */
+@media (max-width: 1024px) {
+  .mobile-offcanvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--tt-bg-color, #1a1a1a);
+    z-index: 10000;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-offcanvas.open {
+    right: 0;
+  }
+
+  .offcanvas-content {
+    padding: 100px 30px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-navigation {
+    flex: 1;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-nav-item {
+    margin: 0 0 20px 0;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 15px 0;
+    font-family: var(--tt-alter-font, "Big Shoulders Display", sans-serif);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--tt-text-color, #ffffff);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: var(--tt-main-color, #a01717);
+    transform: translateX(10px);
+  }
+
+  .mobile-nav-link::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--tt-accent-color, #a01717);
+    transition: width 0.3s ease;
+    transform: translateY(-50%);
+  }
+
+  .mobile-nav-link:hover::before,
+  .mobile-nav-link.active::before {
+    width: 20px;
+  }
+
+  /* Mobile Contact Section */
+  .mobile-contact-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-contact-btn {
+    width: 100%;
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+/* Mobile Backdrop */
+@media (max-width: 1024px) {
+  .mobile-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-backdrop.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Body Scroll Lock */
+:global(body.mobile-menu-open) {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 480px) {
+  .mobile-offcanvas {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .offcanvas-content {
+    padding: 80px 20px 20px;
+  }
+
+  .mobile-nav-link {
+    font-size: 20px;
+    padding: 12px 0;
+  }
+
+  .tt-m-menu-toggle-btn-text {
+    display: none;
+  }
+}
+
+/* Desktop Contact Button Visibility */
+@media (min-width: 1025px) {
+  .hide-from-xlg {
+    display: inline-block !important;
+  }
+}
+
+/* Theme Switch Integration */
+.tt-style-switch {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+/* Smooth Animations for Better UX */
+.mobile-nav-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.3s ease forwards;
+}
+
+.mobile-offcanvas.open .mobile-nav-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.mobile-offcanvas.open .mobile-nav-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.mobile-offcanvas.open .mobile-nav-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.mobile-offcanvas.open .mobile-nav-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.mobile-offcanvas.open .mobile-nav-item:nth-child(5) {
+  animation-delay: 0.3s;
+}
+.mobile-offcanvas.open .mobile-nav-item:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+.mobile-offcanvas.open .mobile-nav-item:nth-child(7) {
+  animation-delay: 0.4s;
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main menu hover */
+.tt-main-menu-list > li > a::before,
+.tt-main-menu-list > li > .tt-submenu-trigger > a::before {
+  position: absolute;
+  display: block;
+  content: "";
+  bottom: 22px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--tt-main-color);
+  transition: width 0.3s;
+}
+.tt-main-menu-list > li > a:hover::before {
+  width: 100%;
+  transition-delay: 0.2s;
+}
+.tt-main-menu-list > li > .tt-submenu-trigger > a:hover::before {
+  width: calc(100% - 8px);
+  transition-delay: 0.1s;
+}
+
+/* Main menu active */
+.tt-main-menu-list > li.active > a::before {
+  width: 100%;
+}
+.tt-main-menu-list > li.active > .tt-submenu-trigger > a::before,
+.tt-main-menu-list > li.tt-submenu-open > .tt-submenu-trigger > a::before {
+  width: 100%;
+}
+
+/* Submenu
+	============ */
+.tt-submenu-wrap {
+  position: relative;
+}
+.tt-submenu-trigger {
+  position: relative;
+}
+.tt-submenu-trigger.tt-no-first-click::before {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+.tt-submenu {
+  position: absolute;
+  display: block !important;
+  top: 100%;
+  left: 0;
+  width: 220px;
+  text-align: left;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 99999;
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}
+
+/* ================================================
+ * Mobile Contact Button
+ * ============================================== */
+
+.mobile-contact-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.mobile-contact-btn:hover {
+  color: inherit;
+}
+
+/* ================================================
+ * Booking Modal Styles
+ * ============================================== */
+
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.booking-modal {
+  background: #1a1a1a;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(160, 23, 23, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.booking-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 30px;
+  border-bottom: 1px solid #a01717;
+}
+
+.booking-modal-title {
+  font-family: var(--tt-alter-font, "Big Shoulders", sans-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.booking-modal-title i {
+  color: #a01717;
+  font-size: 20px;
+}
+
+.booking-modal-close {
+  background: transparent;
+  border: 2px solid #a01717;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.booking-modal-close:hover {
+  background: #a01717;
+  transform: scale(1.1);
+}
+
+.booking-modal-close i {
+  font-size: 16px;
+}
+
+.booking-modal-body {
+  padding: 30px;
+}
+
+/* ================================================
+ * Booking Form Styles
+ * ============================================== */
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.booking-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-form-label {
+  font-family: var(--tt-alter-font, "Big Shoulders", sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.booking-form-label i {
+  color: #a01717;
+  font-size: 14px;
+  width: 16px;
+}
+
+.booking-form-input {
+  font-family: var(--tt-body-font, "Poppins", sans-serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  background: transparent;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.booking-form-input::placeholder {
+  color: #888;
+}
+
+.booking-form-input:focus {
+  border-color: #a01717;
+  box-shadow: 0 0 0 3px rgba(160, 23, 23, 0.2);
+}
+
+.booking-form-input:hover {
+  border-color: #a01717;
+}
+
+/* Date and Time inputs styling */
+.booking-form-input[type="date"],
+.booking-form-input[type="time"] {
+  color-scheme: dark;
+}
+
+.booking-form-input[type="date"]::-webkit-calendar-picker-indicator,
+.booking-form-input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* ================================================
+ * Booking Form Actions
+ * ============================================== */
+
+.booking-form-actions {
+  margin-top: 8px;
+}
+
+.booking-submit-btn {
+  font-family: var(--tt-alter-font, "Big Shoulders", sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: #a01717;
+  border: 2px solid #a01717;
+  border-radius: 8px;
+  padding: 16px 24px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+
+.booking-submit-btn:hover:not(:disabled) {
+  background: transparent;
+  color: #a01717;
+  border-color: #a01717;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(160, 23, 23, 0.3);
+}
+
+.booking-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.booking-submit-btn i {
+  font-size: 16px;
+}
+
+/* ================================================
+ * Success Popup Styles
+ * ============================================== */
+
+.success-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  animation: successPopupSlide 0.4s ease-out;
+}
+
+.success-popup-content {
+  background: #1a1a1a;
+  border: 2px solid #a01717;
+  border-radius: 16px;
+  padding: 32px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(160, 23, 23, 0.4);
+  max-width: 400px;
+  width: auto;
+  min-width: 320px;
+}
+
+.success-popup-content i {
+  font-size: 48px;
+  color: #a01717;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.success-popup-content h4 {
+  font-family: var(--tt-alter-font, "Big Shoulders", sans-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.success-popup-content p {
+  font-family: var(--tt-body-font, "Poppins", sans-serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: #ccc;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ================================================
+ * Animations
+ * ============================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes successPopupSlide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ================================================
+ * Responsive Design for Modal
+ * ============================================== */
+
+@media (max-width: 768px) {
+  .booking-modal-overlay {
+    padding: 16px;
+  }
+
+  .booking-modal {
+    max-height: 95vh;
+  }
+
+  .booking-modal-header {
+    padding: 20px 24px;
+  }
+
+  .booking-modal-title {
+    font-size: 20px;
+  }
+
+  .booking-modal-body {
+    padding: 24px;
+  }
+
+  .booking-form {
+    gap: 20px;
+  }
+
+  .success-popup-content {
+    padding: 24px 32px;
+    min-width: 280px;
+  }
+
+  .success-popup-content h4 {
+    font-size: 20px;
+  }
+
+  .success-popup-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-modal-overlay {
+    padding: 12px;
+  }
+
+  .booking-modal-header {
+    padding: 16px 20px;
+  }
+
+  .booking-modal-title {
+    font-size: 18px;
+    gap: 8px;
+  }
+
+  .booking-modal-body {
+    padding: 20px;
+  }
+
+  .booking-form-input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .booking-submit-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+
+  .success-popup-content {
+    padding: 20px 24px;
+    min-width: 260px;
+  }
+
+  .success-popup-content i {
+    font-size: 40px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .booking-modal,
+  .success-popup,
+  .booking-submit-btn {
+    animation: none;
+    transition: none;
+  }
+
+  .booking-submit-btn:hover {
+    transform: none;
+  }
+}

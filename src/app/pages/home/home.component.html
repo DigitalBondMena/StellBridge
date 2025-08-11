@@ -1,0 +1,17 @@
+<div id="tt-page-content">
+  <app-hero [slider]="slider()"></app-hero>
+  <div id="about-ceo">
+    <app-about-ceo [aboutHome]="aboutHome()"></app-about-ceo>
+    <app-about-sbc [aboutHome]="aboutHome()"></app-about-sbc>
+  </div>
+  @defer (on idle) { @if (clients().length > 2) {
+  <app-clients [clients]="clients()"></app-clients>
+  } }
+  <app-services [services]="services"></app-services>
+  <app-projects [projects]="projects()"></app-projects>
+  <app-tt-scrolling-text-crossed></app-tt-scrolling-text-crossed>
+  <app-testimonials [allTestimonials]="testimonials()"></app-testimonials>
+  <app-contact-us-alternate
+    [contactUs]="contactUs()"
+  ></app-contact-us-alternate>
+</div>

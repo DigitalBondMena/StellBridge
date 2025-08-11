@@ -1,0 +1,6 @@
+div.description.text-xxlg {
+  font-size: 35px !important;
+  @media (max-width: 768px) {
+    font-size: 25px !important;
+  }
+}

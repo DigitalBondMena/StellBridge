@@ -1,0 +1,21 @@
+.main-button-service {
+  background: var(--tt-main-color, #a01717);
+  color: #ffffff !important;
+  border: 2px solid var(--tt-main-color, #a01717) !important;
+  box-shadow: inset 0 0 0 2px #fff !important;
+}
+
+.main-button-service span {
+  color: white !important;
+}
+
+.main-button-service:hover {
+  background: black !important;
+  transform: translateY(-2px) !important;
+  box-shadow: inset 0 0 0 2px black !important;
+  border-color: black !important;
+}
+
+.tt-hac-item-count::before {
+  color: var(--tt-main-color) !important;
+}

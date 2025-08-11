@@ -1,0 +1,240 @@
+<main class="privacy-policy" role="main">
+  <app-landing-section
+    [id]="'privacy-id'"
+    [title]="`Privacy`"
+    [subtitle]="`Policy`"
+    [description]="`Steel Bridge Contracting Company (SBC) respects your privacy and is
+        committed to protecting any personal information you share with us
+        through this website`"
+  ></app-landing-section>
+  <div id="privacy-id" class="container">
+    <header class="privacy-header">
+      <h1 class="privacy-title">{{ privacyPolicy().en_title }}</h1>
+      <div
+        [innerHTML]="privacyPolicy().en_description | safeHtml"
+        class="privacy-subtitle"
+      ></div>
+    </header>
+
+    <nav class="privacy-nav" aria-label="Privacy policy sections">
+      <h2 class="nav-title">Quick Navigation</h2>
+      <ul class="nav-list">
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('information-collect')"
+            class="nav-link"
+          >
+            Information We Collect
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('information-use')"
+            class="nav-link"
+          >
+            How We Use Your Information
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('information-sharing')"
+            class="nav-link"
+          >
+            Sharing of Information
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('data-security')"
+            class="nav-link"
+          >
+            Data Security
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('cookies')"
+            class="nav-link"
+          >
+            Cookies
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('third-party-links')"
+            class="nav-link"
+          >
+            Third-Party Links
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('your-rights')"
+            class="nav-link"
+          >
+            Your Rights
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            (click)="navigateToSection('policy-updates')"
+            class="nav-link"
+          >
+            Policy Updates
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <article class="privacy-content">
+      <section id="information-collect" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">1.</span>
+          Information We Collect
+        </h2>
+        <div class="section-content">
+          <p>
+            We may collect personal details such as name, email, phone number,
+            and company name when you fill out contact forms or request project
+            consultations. We also collect non-personal data such as browser
+            type, device information, and pages visited for analytics purposes.
+          </p>
+        </div>
+      </section>
+
+      <section id="information-use" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">2.</span>
+          How We Use Your Information
+        </h2>
+        <div class="section-content">
+          <p>We use your information to:</p>
+          <ul class="info-list">
+            <li>Respond to inquiries and requests</li>
+            <li>Improve our services and website performance</li>
+            <li>Communicate project updates or service information</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="information-sharing" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">3.</span>
+          Sharing of Information
+        </h2>
+        <div class="section-content">
+          <p>
+            We do not sell, rent, or share your personal information with third
+            parties unless required by law or necessary to fulfill your request.
+          </p>
+        </div>
+      </section>
+
+      <section id="data-security" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">4.</span>
+          Data Security
+        </h2>
+        <div class="section-content">
+          <p>
+            We implement appropriate technical and organizational measures to
+            protect your information from unauthorized access, misuse, or
+            disclosure.
+          </p>
+        </div>
+      </section>
+
+      <section id="cookies" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">5.</span>
+          Cookies
+        </h2>
+        <div class="section-content">
+          <p>
+            Our website may use cookies to enhance user experience and analyze
+            site traffic. You can choose to disable cookies through your browser
+            settings.
+          </p>
+        </div>
+      </section>
+
+      <section id="third-party-links" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">6.</span>
+          Third-Party Links
+        </h2>
+        <div class="section-content">
+          <p>
+            Our website may contain links to other websites. We are not
+            responsible for their privacy practices and encourage you to review
+            their privacy policies.
+          </p>
+        </div>
+      </section>
+
+      <section id="your-rights" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">7.</span>
+          Your Rights
+        </h2>
+        <div class="section-content">
+          <p>
+            You have the right to request access, correction, or deletion of
+            your personal information at any time. To do so, please contact us
+            at:
+          </p>
+          <div class="contact-info">
+            <p class="contact-item">
+              <span class="contact-label">Email:</span>
+              <a
+                href="mailto:info@steelbridge.com.sa"
+                class="contact-link"
+                aria-label="Contact us via email"
+              >
+                info&#64;steelbridge.com.sa
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="policy-updates" class="privacy-section">
+        <h2 class="section-title">
+          <span class="section-number" aria-hidden="true">8.</span>
+          Policy Updates
+        </h2>
+        <div class="section-content">
+          <p>
+            We may update this policy occasionally. Any changes will be posted
+            on this page with a revised date.
+          </p>
+        </div>
+      </section>
+    </article>
+
+    <footer class="privacy-footer">
+      <div class="footer-content">
+        <p class="footer-text">
+          If you have any questions about this Privacy Policy, please don't
+          hesitate to contact us.
+        </p>
+        <a
+          [routerLink]="['/contact-us']"
+          class="footer-contact"
+          aria-label="Contact Steel Bridge Contracting Company"
+        >
+          Get in Touch
+        </a>
+      </div>
+    </footer>
+  </div>
+</main>

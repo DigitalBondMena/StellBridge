@@ -1,0 +1,50 @@
+<div
+  id="projects"
+  class="tt-section no-padding-top padding-top-xlg-80 padding-bottom-20 padding-bottom-xlg-80"
+>
+  <div class="tt-section-inner">
+    <div class="tt-portfolio-preview-list tt-ppli-portrait tt-ppli-hover">
+      <div class="tt-ppl-items-list">
+        @for (project of projects(); track project.slug) {
+        <a
+          [routerLink]="['/project-details', project.slug]"
+          class="tt-ppl-item"
+          (mouseenter)="onProjectMouseEnter($event)"
+          (mouseleave)="onProjectMouseLeave($event)"
+          (touchstart)="onProjectTouchStart($event)"
+          (touchend)="onProjectTouchEnd($event)"
+        >
+          <div class="tt-ppli-preview">
+            <div class="tt-ppli-preview-image">
+              <!-- Note: The recommended maximum image width is 800px -->
+              <img
+                [src]="imageUrl + project.main_image"
+                alt="Image"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="tt-ppl-item-inner">
+            <div class="tt-ppl-item-holder">
+              <div class="tt-ppli-col tt-ppli-col-count">
+                <div class="tt-ppli-count"></div>
+              </div>
+              <!-- /.tt-ppli-col -->
+              <div class="tt-ppli-col tt-ppli-col-caption">
+                <div class="tt-ppli-caption">
+                  <h2 class="tt-ppli-title">{{ project.title }}</h2>
+                </div>
+              </div>
+
+              <div
+                class="tt-ppli-col tt-ppli-col-info tt-justify-content-md-end"
+              ></div>
+            </div>
+          </div>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<main class="achievements-page" role="main">
+  <app-landing-section
+    [id]="'achievements-id'"
+    [title]="`Excellence in`"
+    [subtitle]="` Construction`"
+    [description]="`Discover our portfolio of remarkable construction projects that showcase our commitment to quality, innovation, and excellence in every detail.`"
+  ></app-landing-section>
+
+  <!-- Lightbox Modal Gallery -->
+  <div class="tt-section">
+    <div class="tt-section-inner tt-wrap max-width-1800">
+      <!-- Begin tt-Heading -->
+      <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-100">
+        <!-- <h3 class="tt-heading-subtitle tt-text-reveal">Subtitle</h3> -->
+        <h2 class="tt-heading-title tt-text-reveal">achievements</h2>
+      </div>
+      <!-- End tt-Heading -->
+
+      <!-- Begin tt-Gallery (works combined with tt-Grid!) -->
+      <div class="tt-gallery ttga-hover">
+        <div class="tt-grid ttgr-layout-3 ttgr-gap-2">
+          <!-- Begin tt-Grid items wrap -->
+          <div class="tt-grid-items-wrap isotope-items-wrap">
+            <!-- Begin tt-Grid item -->
+            @for (image of galleryImages(); track image.id; let i = $index) {
+            <div class="tt-grid-item">
+              <div class="ttgr-item-inner">
+                <!-- Begin tt-Gallery item -->
+                <a
+                  [href]="image.imageUrl"
+                  class="tt-gallery-item"
+                  data-cursor="View"
+                  (click)="$event.preventDefault(); openLightbox(i, 'gallery')"
+                  [attr.data-caption]="image.caption"
+                >
+                  <div class="tt-gallery-item-inner">
+                    <div class="tt-gallery-image-wrap tt-anim-zoomin">
+                      <figure class="tt-gallery-image ttgr-height">
+                        <img
+                          [src]="image.imageUrl"
+                          loading="lazy"
+                          [alt]="image.caption || 'Gallery image'"
+                        />
+                      </figure>
+                      <!-- /.tt-gallery-image -->
+                    </div>
+                    <!-- /.tt-gallery-image-wrap -->
+                  </div>
+                  <!-- /.tt-gallery-item-inner -->
+                </a>
+                <!-- End tt-Gallery item -->
+              </div>
+              <!-- /.ttgr-item-inner -->
+            </div>
+            }
+            <!-- End tt-Grid item -->
+          </div>
+          <!-- End tt-Grid items wrap -->
+        </div>
+        <!-- End tt-Grid -->
+      </div>
+      <!-- End tt-Gallery -->
+    </div>
+    <!-- /.tt-section-inner -->
+  </div>
+</main>

@@ -1,0 +1,72 @@
+/* MUST ADD IN LOCAL  */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"); /* Body font */
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&display=swap"); /* Secondary/Alter font */
+
+/* Theme */
+/* MUSR DIVED ALL STYLE IN SEPERATE FILES */
+@import "./style/theme.css";
+@import "./style/helper.css";
+@import "./style/blog.css";
+
+/* Missing Mobile Menu Visibility Fix */
+/* ================================== */
+
+@media (max-width: 1024px) {
+  /* Add smooth transition to mobile menu */
+  .tt-main-menu {
+    transition: visibility 0.3s ease, opacity 0.3s ease !important;
+  }
+
+  /* Show mobile menu when body has tt-m-menu-open class */
+  body.tt-m-menu-open .tt-main-menu {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Prevent body scroll when mobile menu is open */
+  body.tt-m-menu-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+
+  /* Ensure mobile menu is properly layered */
+  body.tt-m-menu-open .tt-main-menu {
+    z-index: 9999 !important;
+  }
+
+  /* Ensure mobile menu links are clickable and visible */
+  body.tt-m-menu-open .tt-main-menu-list > li > a,
+  body.tt-m-menu-open .tt-main-menu-list > li > .tt-submenu-trigger > a {
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+}
+
+/* Main Button */
+.main-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-family: var(--tt-body-font, "Poppins", sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.main-button {
+  background: var(--tt-main-color, #a01717);
+  color: #ffffff;
+  border: 2px solid var(--tt-main-color, #a01717);
+}
+
+.main-button:hover {
+  background: #212121;
+  color: #a01717;
+  transform: translateY(-2px);
+}

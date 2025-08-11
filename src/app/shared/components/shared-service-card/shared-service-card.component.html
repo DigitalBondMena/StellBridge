@@ -1,0 +1,47 @@
+<div id="services" class="tt-section">
+  <div class="tt-section-inner">
+    <div class="tt-horizontal-accordion tt-hac-alter-hover tt-anim-fadeinup">
+      @for (service of services(); track service.slug) {
+
+      <div
+        class="tt-hac-item cursor-alter"
+        [class.active]="isHorizontalItemActive(service.slug)"
+        [attr.data-service-id]="service.slug"
+        (mouseenter)="onHorizontalItemMouseEnter(service.slug)"
+        (mouseleave)="onHorizontalItemMouseLeave()"
+      >
+        <div class="tt-hac-item-count"></div>
+        <div class="tt-hac-item-inner">
+          <div class="tt-hac-item-content">
+            <div class="tt-haci-content-top">
+              <h2 class="tt-haci-title">
+                {{ service.title }}
+              </h2>
+              <div
+                [innerHTML]="service.small_text | safeHtml"
+                class="tt-haci-description"
+              ></div>
+              <!-- /.tt-haci-description -->
+            </div>
+            <!-- /.tt-haci-content-top -->
+
+            <div class="tt-haci-content-bottom">
+              <div class="magnetic-wrap">
+                <a
+                  [routerLink]="['/service-details', service.slug]"
+                  class="tt-btn tt-btn-outline main-button-service tt-magnetic-item"
+                >
+                  <span data-hover="Read More">Read More</span>
+                </a>
+              </div>
+            </div>
+            <!-- /.tt-haci-content-bottom -->
+          </div>
+          <!-- /.tt-hac-item-content -->
+        </div>
+        <!-- /.tt-hac-item-inner -->
+      </div>
+      }
+    </div>
+  </div>
+</div>

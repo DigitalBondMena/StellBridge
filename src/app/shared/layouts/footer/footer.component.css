@@ -1,0 +1,5 @@
+.iso-images {
+  flex-direction: row !important;
+  justify-content: start !important;
+  align-items: center;
+}

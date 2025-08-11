@@ -1,0 +1,310 @@
+<!-- <div id="tt-content-wrap">
+  <div
+    id="page-header"
+    class="ph-full ph-full-m ph-full-m ph-cap-xlg ph-center ph-image-parallax ph-caption-parallax"
+  >
+    <div class="ph-image ph-image-cover-1">
+      <div class="ph-image-inner">
+        <img
+          src="/img/projects/p-1/PROJECTS-PHOTOS/1.jpg"
+          alt="Image"
+          class="cursor-pointer"
+          (click)="openHeaderLightbox()"
+          title="Click to view in lightbox"
+        />
+      </div>
+    </div>
+    <div class="page-header-inner tt-wrap">
+      <div class="ph-caption">
+        <div class="ph-caption-inner">
+          <h1 class="ph-caption-title">
+            Mdl Beast Big
+            <span style="color: var(--tt-main-color)">Beast Stage</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="ph-share">
+      <div class="ph-share-inner">
+        <div class="ph-share-trigger">
+          <div class="ph-share-text">Share</div>
+          <div class="ph-share-icon"><i class="fas fa-share"></i></div>
+        </div>
+        <div class="ph-share-buttons">
+          <ul>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on X"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on Pinterest"
+                ><i class="fa-brands fa-pinterest"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-scroll-down">
+      <a
+        (click)="navigateToSection('tt-page-content')"
+        class="tt-scroll-down-inner tt-magnetic-item"
+        data-offset="0"
+      >
+        <div class="tt-scrd-icon"></div>
+        <svg viewBox="0 0 500 500">
+          <defs>
+            <path
+              d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
+              id="textcircle"
+            ></path>
+          </defs>
+          <text dy="30">
+            <textPath xlink:href="#textcircle">
+              Scroll to Explore - Scroll to Explore -
+            </textPath>
+          </text>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div id="tt-page-content">
+    <div class="tt-section padding-top-xlg-160">
+      <div class="tt-section-inner tt-wrap">
+        <div class="tt-row">
+          <div class="tt-col-lg-9">
+            <div
+              style="
+                text-align: justify;
+                color: white;
+                hyphens: auto;
+                word-spacing: normal;
+                margin: 0;
+              "
+              class="text-xlg font-500 tt-text-reveal"
+            >
+              <p style="margin-bottom: 5px !important">Scope :</p>
+              <ul style="margin-top: 5px !important">
+                <li>Civil Works</li>
+                <li>Steel Structure</li>
+                <li>Roof: Standing Seam</li>
+                <li>Wall: Sandwich Panel & Aluminum Cladding</li>
+              </ul>
+              <p>Client : MDL Beast</p>
+              <p>Consultants : Robert Bird Group & Production Glue</p>
+            </div>
+          </div>
+
+          <div class="tt-col-lg-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-section no-padding-bottom">
+      <div class="tt-section-inner tt-wrap">
+        <div class="tt-gallery ttga-hover">
+          <div class="tt-grid ttgr-gap-4 ttgr-not-cropped ttgr-shifted">
+            <div class="tt-grid-items-wrap isotope-items-wrap">
+              <div
+                class="tt-grid-item isotope-item"
+                *ngFor="let album of galleryAlbums; let i = index"
+              >
+                <div class="ttgr-item-inner">
+                  <div
+                    class="tt-gallery-item cursor-pointer"
+                    data-cursor="Open"
+                    (click)="openLightbox(i)"
+                    title="Click to view in lightbox"
+                  >
+                    <div class="tt-gallery-item-inner">
+                      <div class="tt-gallery-image-wrap tt-anim-zoomin">
+                        <figure class="tt-gallery-image ttgr-height">
+                          <img
+                            [src]="album.thumb"
+                            class="tt-image-parallax"
+                            loading="lazy"
+                            [alt]="album.caption"
+                          />
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div id="tt-content-wrap">
+  <div
+    id="page-header"
+    class="ph-full ph-full-m ph-full-m ph-cap-xlg ph-center ph-image-parallax ph-caption-parallax"
+  >
+    <div class="ph-image ph-image-cover-1">
+      <div class="ph-image-inner">
+        <img
+          [src]="IMAGE_BASE_URL + projectData?.project?.main_image"
+          alt="Image"
+          
+          class="cursor-pointer"
+          (click)="openHeaderLightbox()"
+          title="Click to view in lightbox"
+        />
+      </div>
+    </div>
+    <div class="page-header-inner tt-wrap">
+      <div class="ph-caption">
+        <div class="ph-caption-inner">
+          <h1 class="ph-caption-title" *ngIf="projectData">
+            {{ projectData.project.title }}
+            <!-- <span style="color: var(--tt-main-color)">{{ projectData.project.title }}</span> -->
+          </h1>
+          <!-- <h1 class="ph-caption-title" *ngIf="!projectData">
+            {{ projectData?.project?.title }}
+            <span style="color: var(--tt-main-color)">{{ projectData?.project?.title }}</span>
+          </h1> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="ph-share">
+      <div class="ph-share-inner">
+        <div class="ph-share-trigger">
+          <div class="ph-share-text">Share</div>
+          <div class="ph-share-icon"><i class="fas fa-share"></i></div>
+        </div>
+        <div class="ph-share-buttons">
+          <ul>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on X"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#" class="tt-magnetic-item" title="Share on Pinterest"
+                ><i class="fa-brands fa-pinterest"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-scroll-down">
+      <a
+        (click)="navigateToSection('tt-page-content')"
+        class="tt-scroll-down-inner tt-magnetic-item"
+        data-offset="0"
+      >
+        <div class="tt-scrd-icon"></div>
+        <svg viewBox="0 0 500 500">
+          <defs>
+            <path
+              d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
+              id="textcircle"
+            ></path>
+          </defs>
+          <text dy="30">
+            <textPath xlink:href="#textcircle">
+              Scroll to Explore - Scroll to Explore -
+            </textPath>
+          </text>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div id="tt-page-content">
+    <div class="tt-section padding-top-xlg-160">
+      <div class="tt-section-inner tt-wrap">
+        <div class="tt-row">
+          <div class="tt-col-lg-9">
+            <div
+              style="
+                text-align: justify;
+                color: white;
+                hyphens: auto;
+                word-spacing: normal;
+                margin: 0;
+              "
+              class="text-xlg font-500 tt-text-reveal"
+            >
+              <div *ngIf="projectData">
+                <p style="margin-bottom: 5px !important">Project Description:</p>
+                <p [innerHTML]="projectData.project.main_text | safeHtml"></p>
+              </div>
+              <!-- <div *ngIf="!projectData">
+                <p style="margin-bottom: 5px !important">Scope :</p>
+                <ul style="margin-top: 5px !important">
+                  <li>Civil Works</li>
+                  <li>Steel Structure</li>
+                  <li>Roof: Standing Seam</li>
+                  <li>Wall: Sandwich Panel & Aluminum Cladding</li>
+                </ul>
+                <p>Client : MDL Beast</p>
+                <p>Consultants : Robert Bird Group & Production Glue</p>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="tt-col-lg-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-section no-padding-bottom">
+      <div class="tt-section-inner tt-wrap">
+        <div class="tt-gallery ttga-hover">
+          <div class="tt-grid ttgr-gap-4 ttgr-not-cropped ttgr-shifted">
+            <div class="tt-grid-items-wrap isotope-items-wrap">
+              <div
+                class="tt-grid-item isotope-item"
+                *ngFor="let album of galleryAlbums; let i = index"
+              >
+                <div class="ttgr-item-inner">
+                  <div
+                    class="tt-gallery-item cursor-pointer"
+                    data-cursor="Open"
+                    (click)="openLightbox(i)"
+                    title="Click to view in lightbox"
+                  >
+                    <div class="tt-gallery-item-inner">
+                      <div class="tt-gallery-image-wrap tt-anim-zoomin">
+                        <figure class="tt-gallery-image ttgr-height">
+                          <img
+                            [src]="album.thumb"
+                            class="tt-image-parallax"
+                            loading="lazy"
+                            [alt]="album.caption"
+                          />
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

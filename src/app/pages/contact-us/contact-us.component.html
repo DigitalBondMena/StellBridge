@@ -1,0 +1,164 @@
+<app-landing-section
+  [id]="'contact'"
+  [title]="`Contact`"
+  [subtitle]="`Us`"
+  [description]="`Steel Bridge Contracting Company (SBC) respects your privacy and is
+        committed to protecting any personal information you share with us
+        through this website`"
+></app-landing-section>
+<section class="contact-section" id="contact">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="contact-header">
+      <h2 class="contact-title">Let's Get in Touch!</h2>
+      <p class="contact-subtitle">
+        Ready to start your next project? We're here to help you build something
+        amazing
+      </p>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-form-section">
+      <div class="form-container">
+        <!-- Success/Error Messages -->
+        @if (formData.get('serverError')?.value) {
+        <div class="alert alert-success" role="alert">
+          <i class="fas fa-check-circle"></i>
+          <span
+            >Thank you! Your message has been sent successfully. We'll get back
+            to you soon.</span
+          >
+        </div>
+        } @if (formData.get('serverError')?.value) {
+        <div class="alert alert-error" role="alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <span
+            >Sorry, there was an error sending your message. Please try again or
+            contact us directly.</span
+          >
+        </div>
+        }
+
+        <!-- Contact Form -->
+        <form
+          class="contact-form"
+          [formGroup]="formData"
+          (ngSubmit)="onFormSubmit()"
+        >
+          <!-- Name Input -->
+          <div class="form-group">
+            <label for="name" class="form-label">Full Name *</label>
+            <input
+              type="text"
+              id="name"
+              class="form-input"
+              placeholder="Enter your full name"
+              formControlName="name"
+            />
+            @if (formData.get('name')?.errors) { @if
+            (formData.get('name')?.errors?.['minlength']) {
+            <p class="error-message">Name must be at least 3 characters</p>
+            } @if (formData.get('name')?.errors?.['required']) {
+            <p class="error-message">Name is required</p>
+            } }
+          </div>
+
+          <!-- Email Input -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="Enter your email address"
+              formControlName="email"
+            />
+            @if (formData.get('email')?.errors) { @if
+            (formData.get('email')?.errors?.['email']) {
+            <p class="error-message">Invalid email address</p>
+            } @if (formData.get('email')?.errors?.['required']) {
+            <p class="error-message">Email is required</p>
+            } }
+          </div>
+
+          <!-- Phone Input -->
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number *</label>
+            <input
+              type="tel"
+              id="phone"
+              class="form-input"
+              placeholder="Enter your phone number"
+              formControlName="phone"
+            />
+            @if (formData.get('phone')?.errors) { @if
+            (formData.get('phone')?.errors?.['pattern']) {
+            <p class="error-message">Invalid phone number</p>
+            } @if (formData.get('phone')?.errors?.['required']) {
+            <p class="error-message">Phone number is required</p>
+            } }
+          </div>
+
+          <!-- Address Input -->
+          <div class="form-group">
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              id="address"
+              class="form-input"
+              placeholder="Enter your address (optional)"
+              formControlName="address"
+            />
+            @if (formData.get('address')?.errors) { @if
+            (formData.get('address')?.errors?.['required']) {
+            <p class="error-message">Address is required</p>
+            } }
+          </div>
+
+          <!-- Message Input -->
+          <div class="form-group">
+            <label for="message" class="form-label">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-textarea"
+              placeholder="Tell us about your project or inquiry..."
+              formControlName="message"
+              rows="5"
+            ></textarea>
+            @if (formData.get('message')?.errors) { @if
+            (formData.get('message')?.errors?.['minlength']) {
+            <p class="error-message">Message must be at least 10 characters</p>
+            } @if (formData.get('message')?.errors?.['required']) {
+            <p class="error-message">Message is required</p>
+            } }
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              <span>Send Message</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Success Popup -->
+@if (submitSuccess()) {
+<div
+  class="success-popup"
+  role="alert"
+  aria-live="polite"
+  (click)="onPopupOutsideClick($event)"
+>
+  <div class="success-popup-content">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h4>Message Sent!</h4>
+    <p>We'll contact you soon to confirm your appointment.</p>
+  </div>
+</div>
+}

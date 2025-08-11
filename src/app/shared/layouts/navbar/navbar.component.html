@@ -1,0 +1,144 @@
+<header
+  id="tt-header"
+  class="tt-header-alter tt-header-scroll tt-header-filled"
+  [class.navbar-scrolled]="isScrolled()"
+  [class.navbar-hidden]="!isNavbarVisible()"
+  [class.navbar-visible]="isNavbarVisible()"
+>
+  <div
+    class="navbar-container tt-header-inner tt-noise"
+    [ngStyle]="{ 'margin-top': isScrolled() ? '0' : '10px' }"
+  >
+    <!-- Logo Section -->
+    <div class="tt-header-col tt-header-col-left">
+      <div class="tt-logo">
+        <div class="magnetic-wrap">
+          <a routerLink="/" class="tt-magnetic-item">
+            <img
+              src="./img/logo-light.png"
+              class="tt-logo-light"
+              style="max-height: 90px"
+              alt="Logo"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="tt-header-col tt-header-col-center">
+      <nav class="tt-main-menu desktop-menu">
+        <div class="tt-main-menu-holder">
+          <div class="tt-main-menu-inner">
+            <div class="tt-main-menu-content">
+              <ul class="tt-main-menu-list">
+                @for (item of navigationItems; track $index) {
+                <li
+                  class="tt-submenu-wrap tt-submenu-master"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+                >
+                  <div class="tt-submenu-trigger">
+                    <a [routerLink]="item.route" (click)="onNavigationClick()">
+                      {{ item.label }}
+                    </a>
+                  </div>
+                </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Right Side Controls -->
+    <div class="tt-header-col tt-header-col-right">
+      <!-- Mobile Menu Toggle Button -->
+      <div class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+        <div class="tt-m-menu-toggle-btn-holder">
+          <button
+            type="button"
+            class="tt-m-menu-toggle-btn"
+            [class.active]="isMobileMenuOpen()"
+            aria-label="Toggle mobile menu"
+          >
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contact Button (Desktop) -->
+      <div class="magnetic-wrap">
+        <button
+          type="button"
+          (click)="openBookingModal()"
+          class="tt-btn"
+          style="
+            display: flex !important;
+            justify-content: center;
+            background-color: #a01717 !important;
+          "
+          aria-label="Book a call"
+        >
+          <span
+            style="
+              color: white;
+              @media screen and (max-width: 768px) {
+                font-size: 12px;
+              }
+            "
+            data-hover="Book Call"
+            >Book Call</span
+          >
+        </button>
+      </div>
+
+      <!-- Theme Toggle Button -->
+      <!-- <div class="tt-style-switch" (click)="toggleTheme()">
+        <div class="magnetic-wrap">
+          <div class="tt-style-switch-inner tt-magnetic-item">
+            <div class="tt-stsw-light">
+              <i class="fas fa-sun"></i>
+            </div>
+            <div class="tt-stsw-dark">
+              <i class="fas fa-moon"></i>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Mobile Offcanvas Menu -->
+  <div
+    class="mobile-offcanvas"
+    [class.open]="isMobileMenuOpen()"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="offcanvas-content">
+      <nav class="mobile-navigation">
+        <ul class="mobile-nav-list">
+          <li *ngFor="let item of navigationItems" class="mobile-nav-item">
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+              (click)="onNavigationClick()"
+              class="mobile-nav-link"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Backdrop -->
+  <div
+    class="mobile-backdrop"
+    [class.visible]="isMobileMenuOpen()"
+    (click)="closeMobileMenu()"
+  ></div>
+</header>

@@ -1,0 +1,158 @@
+<div
+  id="page-header"
+  class="ph-full ph-full-m ph-cap-xxxxlg ph-center ph-image-parallax ph-caption-parallax animate-container"
+>
+  <div class="page-header-inner tt-wrap">
+    <div class="ph-caption">
+      <div class="ph-caption-inner">
+        <h1 class="ph-caption-title animate-slide-up" data-delay="200">
+          {{ title }}
+          <span style="color: var(--tt-main-color)">{{ subtitle }}</span>
+        </h1>
+      </div>
+      <!-- /.ph-caption-inner -->
+    </div>
+    <!-- /.ph-caption -->
+  </div>
+
+  <div class="ph-social animate-slide-up" data-delay="600">
+    <ul style="display: flex; flex-direction: column; gap: 10px">
+      <!-- Facebook -->
+      @if (socialLinks().facebook_link !== null) {
+      <li class="animate-slide-up" data-delay="650">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().facebook_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+        </div>
+      </li>
+      }
+
+      <!-- Instagram -->
+      @if (socialLinks().instagram_link !== null) {
+      <li class="animate-slide-up" data-delay="700">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().instagram_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </div>
+      </li>
+      }
+
+      <!-- LinkedIn -->
+      @if (socialLinks().linkedin_link !== null) {
+      <li class="animate-slide-up" data-delay="750">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().linkedin_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-linkedin"></i
+          ></a>
+        </div>
+      </li>
+      }
+
+      <!-- Twitter -->
+      @if (socialLinks().twitter_link !== null) {
+      <li class="animate-slide-up" data-delay="800">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().twitter_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+        </div>
+      </li>
+      }
+
+      <!-- Youtube -->
+      @if (socialLinks().youtube_link !== null) {
+      <li class="animate-slide-up" data-delay="800">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().youtube_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+        </div>
+      </li>
+      }
+      <!-- snapchat_link -->
+      @if (socialLinks().snapchat_link !== null) {
+      <li class="animate-slide-up" data-delay="800">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().snapchat_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+        </div>
+      </li>
+      }
+      <!-- telegram_link -->
+      @if (socialLinks().telegram_link !== null) {
+      <li class="animate-slide-up" data-delay="800">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().telegram_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+        </div>
+      </li>
+      }
+      <!-- tiktok_link -->
+      @if (socialLinks().tiktok_link !== null) {
+      <li class="animate-slide-up" data-delay="800">
+        <div class="magnetic-wrap">
+          <a
+            [href]="socialLinks().tiktok_link"
+            class="tt-magnetic-item"
+            rel="noopener"
+            ><i class="fa-brands fa-x-twitter"></i
+          ></a>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="tt-scroll-down animate-slide-up" data-delay="700">
+    <!-- You can change "data-offset" attribute to set scroll top offset -->
+    <div class="magnetic-wrap">
+      <a
+        (click)="navigateToSection(id)"
+        class="tt-scroll-down-inner tt-magnetic-item"
+        data-offset="0"
+      >
+        <div class="tt-scrd-icon"></div>
+        <svg viewBox="0 0 500 500">
+          <defs>
+            <path
+              d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
+              id="textcircle"
+            ></path>
+          </defs>
+          <text dy="30">
+            <!-- If you change the text, you probably have to change the CSS parameters as well. In the "theme.css" file, find ".tt-scroll-down text {" and change the "font-size" and "letter-spacing" to fit the text correctly. -->
+            <textPath xlink:href="#textcircle">
+              Scroll to Explore - Scroll to Explore -
+            </textPath>
+          </text>
+        </svg>
+      </a>
+      <!-- /.tt-scroll-down-inner -->
+    </div>
+  </div>
+</div>

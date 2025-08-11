@@ -1,0 +1,265 @@
+<section class="contact-section" id="contact">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="contact-header">
+      <h2 class="contact-title">Let's Get in Touch!</h2>
+      <p class="contact-subtitle">
+        Ready to start your next project? We're here to help you build something
+        amazing
+      </p>
+    </div>
+
+    <div class="contact-content">
+      <!-- Contact Information -->
+      <div class="contact-info">
+        <h3 class="info-title">Get in Touch</h3>
+        <p class="info-description">
+          Reach out to us through any of the following methods. We're always
+          ready to discuss your project needs.
+        </p>
+
+        <!-- Contact Items -->
+        <div class="contact-items">
+          <!-- Phone Numbers -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4 class="contact-label">Phone Numbers</h4>
+              <p class="contact-value">
+                <a href="tel:{{ contactUs().first_phone }}">
+                  {{ contactUs().first_phone }}
+                </a>
+              </p>
+              <p class="contact-value">
+                <a href="tel:{{ contactUs().second_phone }}">
+                  {{ contactUs().second_phone }}
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4 class="contact-label">Email Address</h4>
+              <p class="contact-value">
+                <a href="mailto:{{ contactUs().main_email }}">{{
+                  contactUs().main_email
+                }}</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4 class="contact-label">Office Address</h4>
+              <p class="contact-value">
+                {{ contactUs().office_address }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Business Hours -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="contact-details">
+              <h4 class="contact-label">Business Hours</h4>
+              <p class="contact-value">
+                {{ contactUs().office_working_hours }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="quick-actions">
+          <button
+            class="quick-btn quick-call"
+            [attr.aria-label]="'Book Call'"
+            (click)="openBookingModal()"
+            type="button"
+          >
+            <i class="fas fa-phone"></i>
+            <span>Book Call</span>
+          </button>
+          <a
+            target="_blank"
+            [href]="'mailto:' + contactUs().main_email"
+            class="quick-btn quick-email"
+            [attr.aria-label]="'Send email to ' + contactUs().main_email"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Send Email</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div
+    *ngIf="modalOpen()"
+    class="booking-modal-overlay"
+    (click)="onModalBackdropClick($event)"
+    role="dialog"
+    aria-labelledby="booking-modal-title"
+    aria-modal="true"
+  >
+    <div class="booking-modal">
+      <div class="booking-modal-header">
+        <h3 id="booking-modal-title" class="booking-modal-title">
+          <i class="fas fa-calendar-alt"></i>
+          Book a Call
+        </h3>
+        <button
+          class="booking-modal-close"
+          (click)="closeBookingModal()"
+          aria-label="Close modal"
+          type="button"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="booking-modal-body">
+        <form
+          (ngSubmit)="onBookingSubmit()"
+          class="booking-form"
+          [formGroup]="formData"
+        >
+          <!-- Name Field -->
+          <div class="booking-form-group">
+            <label for="booking-name" class="booking-form-label">
+              <i class="fas fa-user"></i>
+              Full Name
+            </label>
+            <input
+              id="booking-name"
+              type="text"
+              class="booking-form-input"
+              placeholder="Enter your full name"
+              formControlName="name"
+            />
+            @if (formData.controls.name.errors &&
+            formData.controls.name.touched) { @if
+            (formData.controls.name.errors['required']) {
+            <p class="error-message">Name is required</p>
+            } @if (formData.controls.name.errors['minlength']) {
+            <p class="error-message">Name must be at least 3 characters</p>
+            } }
+          </div>
+
+          <!-- Email Field -->
+          <div class="booking-form-group">
+            <label for="booking-email" class="booking-form-label">
+              <i class="fas fa-envelope"></i>
+              Email Address
+            </label>
+            <input
+              id="booking-email"
+              type="email"
+              class="booking-form-input"
+              placeholder="Enter your email address"
+              formControlName="email"
+            />
+            @if (formData.controls.email.errors &&
+            formData.controls.email.touched) { @if
+            (formData.controls.email.errors['required']) {
+            <p class="error-message">Email is required</p>
+            } @if (formData.controls.email.errors['email']) {
+            <p class="error-message">Invalid email address</p>
+            } }
+          </div>
+
+          <!-- Phone Field -->
+          <div class="booking-form-group">
+            <label for="booking-phone" class="booking-form-label">
+              <i class="fas fa-phone"></i>
+              Phone Number
+            </label>
+            <input
+              id="booking-phone"
+              type="tel"
+              class="booking-form-input"
+              placeholder="Enter your phone number"
+              formControlName="phone"
+            />
+            @if (formData.controls.phone.errors &&
+            formData.controls.phone.touched) { @if
+            (formData.controls.phone.errors['required']) {
+            <p class="error-message">Phone is required</p>
+            } @if (formData.controls.phone.errors['minlength']) {
+            <p class="error-message">Phone must be at least 10 characters</p>
+            } }
+          </div>
+
+          <!-- Date Field -->
+          <div class="booking-form-group">
+            <label for="booking-date" class="booking-form-label">
+              <i class="fas fa-calendar"></i>
+              Preferred Date
+            </label>
+            <input
+              id="booking-date"
+              type="date"
+              class="booking-form-input"
+              formControlName="free_time"
+              [min]="getTodayDate()"
+            />
+            @if (formData.controls.free_time.errors &&
+            formData.controls.free_time.touched) { @if
+            (formData.controls.free_time.errors['required']) {
+            <p class="error-message">Date is required</p>
+            } @if (formData.controls.free_time.errors['min']) {
+            <p class="error-message">Date must be today or later</p>
+            } }
+          </div>
+
+          <!-- Submit Button -->
+          <div class="booking-form-actions">
+            <button
+              type="submit"
+              class="booking-submit-btn"
+              [disabled]="!isBookingFormValid() || isBookingSubmitting()"
+            >
+              <i
+                class="fas"
+                [class.fa-phone]="!isBookingSubmitting()"
+                [class.fa-spinner]="isBookingSubmitting()"
+                [class.fa-spin]="isBookingSubmitting()"
+              ></i>
+              <span>{{
+                isBookingSubmitting() ? "Booking..." : "Book Call"
+              }}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Popup -->
+  <div
+    *ngIf="successPopupVisible()"
+    class="success-popup"
+    role="alert"
+    aria-live="polite"
+  >
+    <div class="success-popup-content">
+      <i class="fas fa-check-circle"></i>
+      <h4>Success!</h4>
+      <p>Your call has been booked successfully. We'll contact you soon!</p>
+    </div>
+  </div>
+</section>

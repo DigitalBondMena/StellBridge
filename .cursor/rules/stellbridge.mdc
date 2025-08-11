@@ -1,0 +1,107 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Angular 19 SSR Template Conversion Project
+
+## Project Overview
+I'm converting an existing HTML/CSS/JS template to Angular 19 with Server-Side Rendering (SSR). I need help understanding compatibility issues, implementing modern alternatives, and converting JavaScript code to TypeScript.
+
+## The Template Structure
+```
+project/
+├── css/
+├── img/
+├── js/
+│   ├── theme.js
+│   └── vendor/
+│       ├── fancybox/
+│       │   ├── css/
+│       │   ├── js/
+│       │   └── fancybox.css
+│       ├── fontawesome/
+│       │   ├── css/
+│       │   └── webfonts/
+│       ├── gsap/
+│       ├── isotope/
+│       │   ├── imagesloaded.pkgd.min.js
+│       │   ├── isotope.pkgd.min.js
+│       │   └── packery-mode.pkgd.min.js
+│       ├── jquery/
+│       │   └── jquery.min.js
+│       └── swiper/
+│           ├── css/
+│           ├── js/
+│           └── lenis.min.js
+└── vids/
+```
+
+## Libraries Currently Used
+- **jQuery** (jquery.min.js)
+- **Fancybox** (for lightboxes/modals)
+- **FontAwesome** (icons)
+- **Isotope + Packery** (masonry layouts)
+- **Swiper** (carousels/sliders)
+- **GSAP** (animations)
+- **ImagesLoaded** (image loading detection)
+- **Lenis** (smooth scrolling)
+
+## Target Environment
+- **Angular 19** with SSR enabled
+- **TypeScript**
+- Modern build tools and best practices
+
+## What I Need Help With
+
+### 1. Library Compatibility Analysis
+- Which libraries are Angular 19 SSR compatible?
+- What are the modern Angular alternatives?
+- Which libraries need workarounds or special handling?
+
+### 2. Installation & Setup Strategy
+For each library, tell me:
+- Angular-specific package to install (if available)
+- NPM installation commands
+- Import statements needed
+- SSR compatibility considerations
+
+### 3. Code Conversion Guidelines
+- How to convert jQuery DOM manipulation to Angular
+- Converting vanilla JS to TypeScript
+- Proper Angular lifecycle hooks to use
+- SSR-safe coding patterns
+
+### 4. Architecture Recommendations
+- How to structure components for this conversion
+- Service vs component logic separation
+- State management considerations
+- Performance optimization for SSR
+
+## Specific Questions
+
+1. **For jQuery-heavy code**: What's the Angular way to handle DOM manipulation, event binding, and element selection?
+
+2. **For Isotope/Masonry**: Should I use the original library with workarounds or implement a pure Angular solution?
+
+3. **For GSAP animations**: How to properly integrate with Angular lifecycle and SSR?
+
+4. **For Fancybox**: What's the best modern lightbox solution for Angular 19?
+
+5. **SSR Concerns**: How to handle client-side only libraries? When to use `isPlatformBrowser()`?
+
+## Expected Deliverables
+- Step-by-step migration plan
+- Package.json dependencies list
+- Code conversion examples
+- SSR-safe implementation patterns
+- Component structure recommendations
+
+## My Approach
+1. Copy HTML templates to Angular components
+2. Move CSS to component styles or global styles
+3. Convert JavaScript functionality to TypeScript
+4. Install and configure necessary Angular packages
+5. Implement SSR-compatible solutions
+
+Please provide detailed guidance on each aspect, including code examples and best practices for Angular 19 SSR development.

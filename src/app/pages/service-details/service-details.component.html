@@ -1,0 +1,52 @@
+<app-landing-section
+  [id]="'service-details'"
+  [title]="``"
+  [subtitle]="`Services`"
+  [description]="`Comprehensive digital services to boost your online presence and
+          achieve impactful results.`"
+></app-landing-section>
+<div id="tt-page-content">
+  <div
+    id="service-details"
+    class="tt-section padding-top-lg-60 padding-top-80 padding-bottom-lg-40 border-top"
+  >
+    <div class="tt-section-inner tt-wrap max-width-1600">
+      <h2 style="text-align: center; margin-bottom: 40px">
+        {{ serviceDetails()?.title }}
+        <!-- <span style="color: var(--tt-main-color)"> &amp; Identity </span> -->
+      </h2>
+      <div class="tt-row">
+        <div class="tt-col-lg-5">
+          <figure
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 20px;
+              overflow: hidden;
+            "
+          >
+            <img
+              style="width: 100%; height: 100%; object-fit: cover"
+              [src]="IMAGE_BASE_URL + serviceDetails()?.main_image"
+              alt="Service Details"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+        <!-- /.tt-col -->
+
+        <div class="tt-col-lg-1 padding-top-30"></div>
+        <!-- /.tt-col -->
+
+        <div class="tt-col-lg-6 tt-align-self-center tt-anim-fadeinup">
+          <p [innerHTML]="serviceDetails()?.main_text | safeHtml"></p>
+        </div>
+        <!-- /.tt-col -->
+      </div>
+
+      <!-- /.tt-row -->
+    </div>
+    <!-- /.tt-section-inner -->
+  </div>
+</div>

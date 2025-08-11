@@ -1,0 +1,69 @@
+<section class="clients-slider-section">
+  <div class="container position-relative">
+    <!-- Section Header -->
+    <div class="clients-header">
+      <h2 class="clients-title">
+        Trusted by
+        <span style="color: var(--tt-main-color)">Leading Companies</span>
+      </h2>
+      <p class="clients-subtitle">We're proud to work with leaders worldwide</p>
+    </div>
+
+    <!-- Swiper Slider -->
+    <div class="clients-slider-wrapper">
+      <div
+        class="swiper clients-swiper"
+        #swiperContainer
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+      >
+        <!-- Swiper Wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Client Logo Items -->
+          @for (client of clients(); track client.client_name) {
+
+          <div class="swiper-slide client-item">
+            <div class="client-logo-wrapper">
+              <img
+                [src]="imageUrl + client.main_image"
+                [alt]="client.client_name"
+                class="client-logo"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          }
+        </div>
+
+        <!-- Pagination Dots -->
+        <div class="swiper-pagination slider-dots"></div>
+      </div>
+    </div>
+    <!-- Navigation Arrows -->
+    <!-- <div
+      class="swiper-button-prev slider-nav slider-nav-prev"
+      aria-label="Previous clients"
+    >
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div
+      class="swiper-button-next slider-nav slider-nav-next"
+      aria-label="Next clients"
+    >
+      <i class="fas fa-chevron-right"></i>
+    </div> -->
+    <!-- Auto-play Controls -->
+    <!-- <div class="slider-controls" *ngIf="initialized()">
+      <button
+        class="control-btn"
+        (click)="toggleAutoplay()"
+        [attr.aria-label]="
+          isAutoplayActive() ? 'Pause autoplay' : 'Start autoplay'
+        "
+      >
+        <i [class]="isAutoplayActive() ? 'fas fa-pause' : 'fas fa-play'"></i>
+        {{ isAutoplayActive() ? "Pause" : "Play" }}
+      </button>
+    </div> -->
+  </div>
+</section>

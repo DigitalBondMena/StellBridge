@@ -1,0 +1,83 @@
+<div class="tt-section border-bottom">
+  <div class="tt-section-inner tt-wrap">
+    <!-- Begin sticker
+    =================== -->
+    <div class="tt-sticker">
+      <div class="tt-row">
+        <div class="tt-col-lg-4 margin-bottom-40">
+          <!-- Begin sticky element
+          ========================== -->
+          <div class="tt-sticker-sticky tt-sticky-element">
+            <!-- Begin tt-Heading
+            ======================
+            * Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg", "tt-heading-xxlg" or "tt-heading-xxxlg" to set caption size (no class = default size).
+            * Use class "tt-heading-center" to align tt-Heading to center.
+            * Use class "tt-text-reveal" or "tt-anim-fadeinup" with title or subtitle element to enable text reveal animation.
+            * Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+            -->
+            <div class="tt-heading tt-heading-xxlg">
+              <h2 class="tt-heading-title tt-text-reveal">
+                What Clients Say
+                <p style="color: var(--tt-main-color); display: inline">
+                  About
+                </p>
+
+                <p style="color: var(--tt-main-color); display: inline">SBC</p>
+              </h2>
+            </div>
+          </div>
+          <!-- End sticky element -->
+        </div>
+        <!-- /.tt-col -->
+
+        <div class="tt-col-lg-8">
+          <!-- Begin sticker scroller
+          ============================ -->
+          <div class="tt-sticker-scroller">
+            <!-- Begin sticky testimonials
+            ==============================
+            * Use class "tt-stte-center" to align the content to the center.
+            * Use class "tt-stte-reversed-colors" to enable reversed colors.
+            * Note: All cards have equal height, based on the tallest card.
+            -->
+            <div class="tt-sticky-testimonials tt-stte-reversed-colors">
+              @for (testimonial of allTestimonials(); track testimonial.job) {
+              <div class="tt-stte-item" #ttStteItem>
+                <div class="tt-stte-card cursor-alter" #ttStteCard>
+                  <div
+                    style="color: var(--tt-main-color)"
+                    class="tt-stte-card-counter"
+                  ></div>
+                  <div class="tt-stte-card-caption">
+                    <div
+                      [innerHTML]="testimonial.text | safeHtml"
+                      class="tt-stte-text"
+                    ></div>
+                    <div class="tt-stte-subtext">
+                      <a
+                        href="https://themetorium.net/"
+                        class="tt-link"
+                        target="_blank"
+                        rel="noopener"
+                        >{{ testimonial.job }}</a
+                      >
+                    </div>
+                  </div>
+                  <!-- /.tt-stte-card-caption -->
+                </div>
+                <!-- /.tt-stte-card -->
+              </div>
+              }
+            </div>
+            <!-- End sticky testimonials  -->
+          </div>
+          <!-- End sticker scroller -->
+        </div>
+        <!-- /.tt-col -->
+      </div>
+      <!-- /.tt-row -->
+    </div>
+    <!-- End sticker -->
+  </div>
+  <!-- /.tt-section-inner -->
+</div>
