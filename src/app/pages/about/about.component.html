@@ -202,7 +202,7 @@
 
 
 <app-landing-section
-  id="about-us"
+  [id]="'about-us'"
   [title]="aboutData()?.about?.main_title || 'About'"
   [subtitle]="'Us'"
   [description]="aboutData()?.about?.main_text || 'Steel Bridge Contracting Company (SBC) respects your privacy and is committed to protecting any personal information you share with us through this website'"
@@ -241,7 +241,7 @@
           <p [innerHTML]="aboutData()?.about?.commitment_text | safeHtml"></p>
         }
         <!-- <p>{{ aboutData()?.about?.mission_text || 'Our mission is to contribute to the Kingdom’s vision by providing world-class solutions that meet the highest standards of safety, durability, and aesthetic appeal.' }}</p> -->
-          
+
         </div>
       </div>
     </div>

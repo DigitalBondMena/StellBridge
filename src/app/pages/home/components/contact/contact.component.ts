@@ -53,13 +53,20 @@ export class ContactComponent {
   // Check if running in browser for SSR safety
   isBrowser = computed(() => isPlatformBrowser(this.platformId));
 
+  ngOnInit(): void {
+    // Register this form with the service
+    this.bookingModalService.registerForm(this.formData);
+  }
+
+  ngOnDestroy(): void {
+    // Unregister when component is destroyed
+    this.bookingModalService.unregisterForm();
+  }
+
   // Booking modal methods - delegate to service
   openBookingModal(): void {
     if (this.isBrowser()) {
-      this.bookingModalService.openBookingModal(() => {
-        // Reset form when opening modal
-        this.formData.reset();
-      });
+      this.bookingModalService.openBookingModal();
     }
   }
 

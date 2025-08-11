@@ -63,7 +63,9 @@
             <div class="contact-details">
               <h4 class="contact-label">Office Address</h4>
               <p class="contact-value">
-                {{ contactUs().office_address }}
+                <a target="_blank" [href]="contactUs().office_map_link">{{
+                  contactUs().office_address
+                }}</a>
               </p>
             </div>
           </div>

@@ -20,18 +20,31 @@ export class BookingModalService {
   private isBookingSubmitting = signal<boolean>(false);
   private showSuccessPopup = signal<boolean>(false);
 
+  // Store form reference
+  private currentForm: any = null;
+
   // Computed values
   modalOpen = computed(() => this.isModalOpen());
   bookingSubmitting = computed(() => this.isBookingSubmitting());
   successPopupVisible = computed(() => this.showSuccessPopup());
 
+  // Method to register the form
+  registerForm(form: any): void {
+    this.currentForm = form;
+  }
+
+  // Method to unregister the form
+  unregisterForm(): void {
+    this.currentForm = null;
+  }
+
   // Modal control methods
-  openBookingModal(onFormReset?: () => void): void {
+  openBookingModal(): void {
     this.isModalOpen.set(true);
 
-    // Reset form if callback provided
-    if (onFormReset) {
-      onFormReset();
+    // Reset form if available
+    if (this.currentForm) {
+      this.currentForm.reset();
     }
 
     // Prevent body scroll when modal is open

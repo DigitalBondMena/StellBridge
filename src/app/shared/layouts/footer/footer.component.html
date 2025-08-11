@@ -59,50 +59,74 @@
           <h5 class="tt-footer-widget-heading">Contact</h5>
           <ul class="tt-footer-widget-list">
             <li>
-              <a class="tt-link">
-                King Fahad Road,<br />
-                Al Olya, Riyadh</a
+              <a
+                target="_blank"
+                [href]="socialLinks().office_map_link"
+                class="tt-link"
+              >
+                {{ socialLinks().office_address }}
+              </a>
+            </li>
+            <li>
+              <a
+                [href]="'mailto:' + socialLinks().main_email"
+                class="tt-link"
+                >{{ socialLinks().main_email }}</a
               >
             </li>
             <li>
-              <a href="mailto:info@steelbridgeksa.com" class="tt-link">{{
-                "info@steelbridgeksa.com"
-              }}</a>
-            </li>
-            <li>
-              <a href="tel:+966555041488" class="tt-link"> +966 55 504 1488</a>
+              <a [href]="'tel:' + socialLinks().first_phone" class="tt-link">
+                {{ socialLinks().first_phone }}
+              </a>
             </li>
             <li>
               <div class="tt-social-buttons">
                 <ul>
+                  @if (socialLinks().facebook_link !== null) {
                   <li>
                     <div class="magnetic-wrap">
-                      <a href="" class="tt-magnetic-item" rel="noopener"
+                      <a
+                        [href]="socialLinks().facebook_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
                         ><i class="fa-brands fa-facebook-f"></i
                       ></a>
                     </div>
                   </li>
+                  } @if (socialLinks().instagram_link !== null) {
                   <li>
                     <div class="magnetic-wrap">
-                      <a href="" class="tt-magnetic-item" rel="noopener"
+                      <a
+                        [href]="socialLinks().instagram_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
                         ><i class="fa-brands fa-instagram"></i
                       ></a>
                     </div>
                   </li>
+                  } @if (socialLinks().linkedin_link !== null) {
                   <li>
                     <div class="magnetic-wrap">
-                      <a href="" class="tt-magnetic-item" rel="noopener"
+                      <a
+                        [href]="socialLinks().instagram_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
                         ><i class="fa-brands fa-linkedin"></i
                       ></a>
                     </div>
                   </li>
+                  } @if (socialLinks().twitter_link !== null) {
                   <li>
                     <div class="magnetic-wrap">
-                      <a href="" class="tt-magnetic-item" rel="noopener"
+                      <a
+                        [href]="socialLinks().twitter_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
                         ><i class="fa-brands fa-x-twitter"></i
                       ></a>
                     </div>
                   </li>
+                  }
                   <!-- <li><a href="https://x.com/Themetorium" class="tt-magnetic-item" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a></li> -->
                 </ul>
               </div>

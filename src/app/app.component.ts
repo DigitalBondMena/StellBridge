@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private libraryLoader = inject(LibraryLoaderService);
   private platformId = inject(PLATFORM_ID);
+  private cdr = inject(ChangeDetectorRef);
   private isLibrariesInitialized = false;
 
   // Core services
@@ -58,39 +60,75 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private magicCursorService = inject(MagicCursorService);
   private swipersService = inject(SwipersService);
 
+  // Performance optimization: Cache DOM elements
+  private styleSwitch: HTMLElement | null = null;
+  private magneticElements: NodeListOf<Element> | null = null;
+  private scrollToTopBtn: HTMLElement | null = null;
+  private progressPath: SVGPathElement | null = null;
+
+  // Performance optimization: Debounce scroll events
+  private scrollTimeout: any;
+  private readonly SCROLL_DEBOUNCE = 16; // ~60fps
+
   ngOnInit() {
-    // Only initialize in browser
     if (isPlatformBrowser(this.platformId)) {
-      // Initialize critical libraries that need early setup
-      this.initializeCriticalLibraries();
+      // Use requestIdleCallback for non-critical initialization
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          this.initializeCriticalLibraries();
+        });
+      } else {
+        // Fallback for older browsers
+        setTimeout(() => {
+          this.initializeCriticalLibraries();
+        }, 100);
+      }
     }
   }
 
   ngAfterViewInit() {
-    // Only initialize in browser
     if (isPlatformBrowser(this.platformId)) {
-      // Initialize view-dependent libraries after DOM is ready
-      this.initializeViewLibraries();
+      // Cache DOM elements once
+      this.cacheDOMElements();
 
-      // Initialize our converted services after hydration is complete
+      // Use requestIdleCallback for view-dependent libraries
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          this.initializeViewLibraries();
+        });
+      } else {
+        setTimeout(() => {
+          this.initializeViewLibraries();
+        }, 200);
+      }
+
+      // Initialize services in parallel
       this.initializeConvertedServices();
 
-      // Mark libraries as initialized
       this.isLibrariesInitialized = true;
-
-      // Dispatch custom event to notify components that libraries are ready
       this.dispatchLibrariesReadyEvent();
 
-      // Initialize scroll-to-top button (MOVED INSIDE BROWSER CHECK)
+      // Initialize scroll-to-top with cached elements
       this.initializeScrollToTop();
     }
   }
 
   ngOnDestroy() {
-    // Only cleanup in browser
     if (isPlatformBrowser(this.platformId)) {
       this.cleanupLibraries();
     }
+  }
+
+  /**
+   * Cache DOM elements to avoid repeated queries
+   */
+  private cacheDOMElements(): void {
+    this.styleSwitch = document.querySelector('.tt-style-switch');
+    this.magneticElements = document.querySelectorAll('.tt-magnetic-item');
+    this.scrollToTopBtn = document.querySelector('.tt-scroll-to-top');
+    this.progressPath = document.querySelector(
+      '.tt-stt-progress path'
+    ) as SVGPathElement;
   }
 
   /**
@@ -98,19 +136,26 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   private async initializeCriticalLibraries() {
     try {
-      // Pre-load GSAP for immediate availability
-      await this.libraryLoader.loadGSAP();
-      console.log('✅ GSAP loaded and ready');
+      // Load libraries in parallel instead of sequentially
+      const [gsapResult, swiperResult, isotopeResult] =
+        await Promise.allSettled([
+          this.libraryLoader.loadGSAP(),
+          this.libraryLoader.loadSwiper(),
+          this.libraryLoader.loadIsotope(),
+        ]);
 
-      // Pre-load Swiper
-      await this.libraryLoader.loadSwiper();
-      console.log('✅ Swiper loaded and ready');
-
-      // Pre-load Isotope
-      await this.libraryLoader.loadIsotope();
-      console.log('✅ Isotope loaded and ready');
+      // Handle results individually
+      if (gsapResult.status === 'fulfilled') {
+        console.log('✅ GSAP loaded successfully');
+      }
+      if (swiperResult.status === 'fulfilled') {
+        console.log('✅ Swiper loaded successfully');
+      }
+      if (isotopeResult.status === 'fulfilled') {
+        console.log('✅ Isotope loaded successfully');
+      }
     } catch (error) {
-      console.error('❌ Error loading critical libraries:', error);
+      console.warn('⚠️ Some libraries failed to load:', error);
     }
   }
 
@@ -119,78 +164,82 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   private async initializeViewLibraries() {
     try {
-      // Initialize page transitions
-      await this.libraryLoader.initPageTransitions();
-      console.log('✅ Page transitions initialized');
+      // Initialize non-critical features in parallel
+      const initPromises = [
+        this.libraryLoader.initPageTransitions(),
+        this.libraryLoader.initMagicCursor(),
+        this.libraryLoader.initTextReveal(),
+      ];
 
-      // Initialize magic cursor
-      await this.libraryLoader.initMagicCursor();
-      console.log('✅ Magic cursor initialized');
+      // Wait for all to complete
+      await Promise.allSettled(initPromises);
 
-      // Initialize text reveal animations
-      await this.libraryLoader.initTextReveal();
-      console.log('✅ Text reveal animations initialized');
-
-      // Initialize style switcher (light/dark mode)
+      // Initialize UI features
       this.initStyleSwitcher();
-
-      // Initialize magnetic elements
       this.initMagneticElements();
-
-      // Initialize scroll to top button
     } catch (error) {
-      console.error('❌ Error loading view libraries:', error);
+      console.warn('⚠️ Some view libraries failed to initialize:', error);
     }
   }
 
   /**
-   * Initialize style switcher functionality (replaces jQuery)
+   * Initialize style switcher functionality (optimized)
    */
   private async initStyleSwitcher() {
-    if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId) || !this.styleSwitch) return;
 
     const { gsap } = await this.libraryLoader.loadGSAP();
     if (!gsap) return;
 
-    const styleSwitch = document.querySelector('.tt-style-switch');
-    if (!styleSwitch) return;
+    // Remove existing listeners to prevent duplicates
+    this.styleSwitch.removeEventListener('click', this.handleStyleSwitch);
 
-    styleSwitch.addEventListener('click', () => {
-      const body = document.body;
-      const isDark = body.classList.contains('tt-dark');
+    // Add new listener
+    this.styleSwitch.addEventListener(
+      'click',
+      this.handleStyleSwitch.bind(this)
+    );
 
-      if (isDark) {
-        body.classList.remove('tt-dark');
-        body.classList.add('tt-light');
-      } else {
-        body.classList.remove('tt-light');
-        body.classList.add('tt-dark');
-      }
-
-      // Animate the switch
-      gsap.to(styleSwitch, {
-        rotation: 360,
-        duration: 0.5,
-        ease: 'power2.out',
-      });
+    // Animate the switch
+    gsap.to(this.styleSwitch, {
+      rotation: 360,
+      duration: 0.5,
+      ease: 'power2.out',
     });
-
-    console.log('✅ Style switcher initialized');
   }
 
   /**
-   * Initialize magnetic elements effect (replaces jQuery)
+   * Handle style switching (bound method for proper cleanup)
+   */
+  private handleStyleSwitch() {
+    const body = document.body;
+    const isDark = body.classList.contains('tt-dark');
+
+    if (isDark) {
+      body.classList.remove('tt-dark');
+      body.classList.add('tt-light');
+    } else {
+      body.classList.remove('tt-light');
+      body.classList.add('tt-dark');
+    }
+  }
+
+  /**
+   * Initialize magnetic elements effect (optimized)
    */
   private async initMagneticElements() {
-    if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId) || !this.magneticElements) return;
 
     const { gsap } = await this.libraryLoader.loadGSAP();
     if (!gsap) return;
 
-    const magneticElements = document.querySelectorAll('.tt-magnetic-item');
+    this.magneticElements.forEach((element: any) => {
+      // Remove existing listeners
+      element.removeEventListener('mousemove', element._magneticMouseMove);
+      element.removeEventListener('mouseleave', element._magneticMouseLeave);
 
-    magneticElements.forEach((element: any) => {
-      const handleMouseMove = (e: MouseEvent) => {
+      // Create bound event handlers
+      element._magneticMouseMove = (e: MouseEvent) => {
         const rect = element.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -203,7 +252,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       };
 
-      const handleMouseLeave = () => {
+      element._magneticMouseLeave = () => {
         gsap.to(element, {
           x: 0,
           y: 0,
@@ -212,16 +261,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       };
 
-      element.addEventListener('mousemove', handleMouseMove);
-      element.addEventListener('mouseleave', handleMouseLeave);
+      // Add new listeners
+      element.addEventListener('mousemove', element._magneticMouseMove);
+      element.addEventListener('mouseleave', element._magneticMouseLeave);
     });
-
-    console.log('✅ Magnetic elements initialized');
   }
-
-  /**
-   * Initialize scroll to top functionality (replaces jQuery)
-   */
 
   /**
    * Initialize our converted services after hydration is complete
@@ -230,68 +274,22 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       console.log('🚀 Step 4: Initializing Advanced Angular Services...');
 
-      // Initialize page transitions
-      await this.pageTransitionsService.initialize();
+      // Initialize services in parallel for better performance
+      const servicePromises = [
+        this.pageTransitionsService.initialize(),
+        this.magicCursorService.initialize(),
+        this.swipersService.initialize(),
+      ];
 
-      // Initialize background noise
+      // Wait for all services to initialize
+      await Promise.allSettled(servicePromises);
+
+      // Initialize synchronous services
       this.backgroundNoiseService.initialize();
-
-      // Initialize smooth scroll
       this.smoothScrollService.init();
-
-      // Initialize theme service
       await this.themeService.initialize();
 
-      // Initialize advanced services
-      // await this.isotopeService.initialize();
-      await this.magicCursorService.initialize();
-      await this.swipersService.initialize();
-
-      console.log('✅ Converted services initialized');
-
-      // Test the services after initialization
-      console.log('📊 Service Status Report:');
-      console.log('  Page Transitions:');
-      console.log(
-        '    - Enabled:',
-        this.pageTransitionsService.transitionsEnabled
-      );
-      console.log(
-        '    - In Transition:',
-        this.pageTransitionsService.isInTransition
-      );
-
-      console.log('  Smooth Scroll:');
-      console.log('    - Enabled:', this.smoothScrollService.isScrollEnabled());
-      console.log('    - Scroll Y:', this.smoothScrollService.getScrollY());
-
-      console.log('  Theme Service:');
-      console.log('    - Current Theme:', this.themeService.currentTheme());
-      console.log('    - Is Light Mode:', this.themeService.isLightMode());
-      console.log('    - Is Available:', this.themeService.isAvailable);
-
-      console.log('  Advanced Services:');
-      console.log('    - Isotope Available:', this.isotopeService.isAvailable);
-      console.log(
-        '    - Isotope Initialized:',
-        this.isotopeService.isInitialized()
-      );
-      console.log(
-        '    - Magic Cursor Available:',
-        this.magicCursorService.isAvailable
-      );
-      console.log(
-        '    - Magic Cursor Initialized:',
-        this.magicCursorService.isInitialized()
-      );
-      console.log('    - Swipers Available:', this.swipersService.isAvailable);
-      console.log('    - Swipers Count:', this.swipersService.slidersCount());
-
-      console.log('  Background Noise: Initialized');
-
-      console.log(
-        '🎉 Step 4 Complete: Isotope + Magic Cursor + Swipers services converted!'
-      );
+      console.log('✅ All services initialized successfully');
     } catch (error) {
       console.error('❌ Error initializing converted services:', error);
     }
@@ -317,7 +315,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     window.dispatchEvent(event);
-    console.log('🚀 All libraries initialized and ready!');
   }
 
   /**
@@ -349,19 +346,29 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.swipersService.destroy();
     }
 
-    // Remove any global event listeners - with additional browser check
-    try {
-      const magneticElements = document.querySelectorAll('.tt-magnetic-item');
-      magneticElements.forEach((element: any) => {
-        element.removeEventListener('mousemove', null);
-        element.removeEventListener('mouseleave', null);
-      });
-    } catch (error) {
-      // Ignore cleanup errors during SSR
-      console.warn('Cleanup warning (SSR safe):', error);
+    // Cleanup event listeners properly
+    if (this.styleSwitch) {
+      this.styleSwitch.removeEventListener('click', this.handleStyleSwitch);
     }
 
-    console.log('🧹 All services and libraries cleaned up');
+    if (this.magneticElements) {
+      this.magneticElements.forEach((element: any) => {
+        if (element._magneticMouseMove) {
+          element.removeEventListener('mousemove', element._magneticMouseMove);
+        }
+        if (element._magneticMouseLeave) {
+          element.removeEventListener(
+            'mouseleave',
+            element._magneticMouseLeave
+          );
+        }
+      });
+    }
+
+    // Clear scroll timeout
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
   }
 
   /**
@@ -384,49 +391,58 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ttSttOffset = 150;
   ttSttPathLength!: number;
-  ttSttProgressPath!: SVGPathElement;
 
   constructor() {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (isPlatformBrowser(this.platformId)) {
-      this.updateButtonVisibility();
-      this.updateProgress();
+      // Debounce scroll events for better performance
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout);
+      }
+
+      this.scrollTimeout = setTimeout(() => {
+        this.updateButtonVisibility();
+        this.updateProgress();
+      }, this.SCROLL_DEBOUNCE);
     }
   }
 
   updateButtonVisibility() {
-    if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId) || !this.scrollToTopBtn) return;
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    const btn = document.querySelector('.tt-scroll-to-top');
-    if (btn) {
-      if (scrollTop > this.ttSttOffset) {
-        btn.classList.add('tt-stt-active');
-      } else {
-        btn.classList.remove('tt-stt-active');
-      }
+    if (scrollTop > this.ttSttOffset) {
+      this.scrollToTopBtn.classList.add('tt-stt-active');
+    } else {
+      this.scrollToTopBtn.classList.remove('tt-stt-active');
     }
   }
 
   updateProgress() {
-    if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId) || !this.progressPath) return;
 
-    if (this.ttSttProgressPath) {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress =
-        this.ttSttPathLength - (scrollTop * this.ttSttPathLength) / docHeight;
-      this.ttSttProgressPath.style.strokeDashoffset = `${progress}`;
-    }
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const progress =
+      this.ttSttPathLength - (scrollTop * this.ttSttPathLength) / docHeight;
+
+    this.progressPath.style.strokeDashoffset = `${progress}`;
   }
 
   scrollToTop(event: Event) {
     event.preventDefault();
+
+    // Use smooth scroll if available, fallback to custom animation
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Custom smooth scroll fallback
     const duration = 800;
     const start = window.scrollY;
     const startTime = performance.now();
@@ -456,22 +472,17 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Initialize scroll-to-top button functionality
+   * Initialize scroll-to-top button functionality (optimized)
    */
   private initializeScrollToTop(): void {
-    // Initialize progress path
-    this.ttSttProgressPath = document.querySelector(
-      '.tt-stt-progress path'
-    ) as SVGPathElement;
+    if (!this.progressPath) return;
 
-    if (this.ttSttProgressPath) {
-      this.ttSttPathLength = this.ttSttProgressPath.getTotalLength();
+    this.ttSttPathLength = this.progressPath.getTotalLength();
 
-      this.ttSttProgressPath.style.transition = 'none';
-      this.ttSttProgressPath.style.strokeDasharray = `${this.ttSttPathLength} ${this.ttSttPathLength}`;
-      this.ttSttProgressPath.style.strokeDashoffset = `${this.ttSttPathLength}`;
-      this.ttSttProgressPath.style.transition = 'stroke-dashoffset 10ms linear';
-    }
+    this.progressPath.style.transition = 'none';
+    this.progressPath.style.strokeDasharray = `${this.ttSttPathLength} ${this.ttSttPathLength}`;
+    this.progressPath.style.strokeDashoffset = `${this.ttSttPathLength}`;
+    this.progressPath.style.transition = 'stroke-dashoffset 10ms linear';
 
     this.updateButtonVisibility();
     this.updateProgress();
