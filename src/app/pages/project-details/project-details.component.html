@@ -154,13 +154,14 @@
     class="ph-full ph-full-m ph-full-m ph-cap-xlg ph-center ph-image-parallax ph-caption-parallax"
   >
     <div class="ph-image ph-image-cover-1">
-      <div class="ph-image-inner">
+      <div class="ph-image-inner position-relative">
         <img
-          [src]="IMAGE_BASE_URL + projectData?.project?.main_image"
+          [ngSrc]="IMAGE_BASE_URL + projectData?.project?.main_image"
           alt="Image"
-          
+          fill
+          priority
+          placeholder="blur"
           class="cursor-pointer"
-          (click)="openHeaderLightbox()"
           title="Click to view in lightbox"
         />
       </div>
@@ -248,7 +249,9 @@
               class="text-xlg font-500 tt-text-reveal"
             >
               <div *ngIf="projectData">
-                <p style="margin-bottom: 5px !important">Project Description:</p>
+                <p style="margin-bottom: 5px !important">
+                  Project Description:
+                </p>
                 <p [innerHTML]="projectData.project.main_text | safeHtml"></p>
               </div>
               <!-- <div *ngIf="!projectData">
@@ -273,17 +276,24 @@
     <div class="tt-section no-padding-bottom">
       <div class="tt-section-inner tt-wrap">
         <div class="tt-gallery ttga-hover">
-          <div class="tt-grid ttgr-gap-4 ttgr-not-cropped ttgr-shifted">
+          <!-- Loading state -->
+          <div *ngIf="isLoading" class="text-center py-8">
+            <p class="text-white">Loading project images...</p>
+          </div>
+          <!-- Gallery grid -->
+          <div
+            *ngIf="!isLoading && galleryAlbums && galleryAlbums.length > 0"
+            class="tt-grid ttgr-gap-4 ttgr-not-cropped ttgr-shifted"
+          >
             <div class="tt-grid-items-wrap isotope-items-wrap">
-              <div
-                class="tt-grid-item isotope-item"
-                *ngFor="let album of galleryAlbums; let i = index"
-              >
+              @for (album of galleryAlbums; track $index){
+
+              <div class="tt-grid-item isotope-item">
                 <div class="ttgr-item-inner">
                   <div
                     class="tt-gallery-item cursor-pointer"
                     data-cursor="Open"
-                    (click)="openLightbox(i)"
+                    (click)="openLightbox($index)"
                     title="Click to view in lightbox"
                   >
                     <div class="tt-gallery-item-inner">
@@ -301,6 +311,7 @@
                   </div>
                 </div>
               </div>
+              }
             </div>
           </div>
         </div>

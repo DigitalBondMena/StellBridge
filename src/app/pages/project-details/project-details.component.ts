@@ -1,9 +1,9 @@
-import { IMAGE_BASE_URL } from './../../core/env';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html.pipe';
+import { IMAGE_BASE_URL } from './../../core/env';
 
 import {
   Lightbox,
@@ -12,8 +12,8 @@ import {
   LightboxEvent,
 } from 'ngx-lightbox';
 import { Subscription } from 'rxjs';
-import { ProjectsService } from '../project/res/projects.service';
 import { ProjectDetails } from '../project/res/project';
+import { ProjectsService } from '../project/res/projects.service';
 
 interface Album {
   src: string;
@@ -36,15 +36,10 @@ interface ProjectData {
   updated_at: string;
 }
 
-interface ApiResponse {
-  success: boolean;
-  message: string;
-  data: ProjectData;
-}
-
 @Component({
   selector: 'app-project-details',
-  imports: [CommonModule,SafeHtmlPipe],
+  standalone: true,
+  imports: [CommonModule, SafeHtmlPipe, NgOptimizedImage],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css',
 })
@@ -52,57 +47,24 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   private _subscription?: Subscription;
 
   // Project data from API
-  projectData?: ProjectDetails;
+  projectData: ProjectDetails = {} as ProjectDetails;
 
-  // Album data for ngx-lightbox (keeping static as requested)
-  albums: Album[] = [
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/1.jpg`,
-      caption: '',
-      thumb: `/img/projects/p-1/PROJECTS-PHOTOS/1.jpg`,
-    },
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/2.jpg`,
-      caption: '',
-      thumb: `/img/projects/p-1/PROJECTS-PHOTOS/2.jpg`,
-    },
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/3.jpg`,
-      caption: '',
-      thumb: `/img/projects/p-1/PROJECTS-PHOTOS/3.jpg`,
-    },
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/4.jpg`,
-      caption: '',
-      thumb: '/img/projects/p-1/PROJECTS-PHOTOS/4.jpg',
-    },
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/5.jpg`,
-      caption: '',
-      thumb: '/img/projects/p-1/PROJECTS-PHOTOS/5.jpg',
-    },
-    {
-      src: `/img/projects/p-1/PROJECTS-PHOTOS/6.jpg`,
-      caption: '',
-      thumb: '/img/projects/p-1/PROJECTS-PHOTOS/6.jpg',
-    },
-    // {
-    //   src: `/img/projects/p-1/PROJECTS-PHOTOS/7.jpg`,
-    //   caption: '',
-    //   thumb: '/img/projects/p-1/PROJECTS-PHOTOS/7.jpg',
-    // },
-  ];
+  // Loading state
+  isLoading = true;
+
+  // Album data for ngx-lightbox (dynamic from API)
+  albums: Album[] = [];
 
   // Gallery images (excluding header)
-  galleryAlbums: Album[] = this.albums.slice(1);
-  IMAGE_BASE_URL :string=IMAGE_BASE_URL;
+  galleryAlbums: Album[] = [];
+  IMAGE_BASE_URL: string = IMAGE_BASE_URL;
 
-private ProjectDetails=inject(ProjectsService)
+  private ProjectDetails = inject(ProjectsService);
   constructor(
     private _lightbox: Lightbox,
     private _lightboxEvent: LightboxEvent,
     private _lightboxConfig: LightboxConfig,
-    private http: HttpClient,
+    private http: HttpClient
   ) {
     // Configure lightbox options
     this._lightboxConfig.fadeDuration = 0.7;
@@ -137,21 +99,49 @@ private ProjectDetails=inject(ProjectsService)
     });
   }
 
-
   fetchProjectData(): void {
     if (this.projectId) {
-      this.ProjectDetails.getProjectDetails(this.projectId.toString())
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-            if (response) {
-              this.projectData = response;
+      this.ProjectDetails.getProjectDetails(
+        this.projectId.toString()
+      ).subscribe({
+        next: (response) => {
+          console.log(response);
+          if (response) {
+            this.projectData = response;
+
+            // Check if projectimagesactive exists and has data
+            if (
+              response.project?.projectimagesactive &&
+              response.project.projectimagesactive.length > 0
+            ) {
+              console.log(
+                'Project images found:',
+                response.project.projectimagesactive
+              );
+              this.albums = response.project.projectimagesactive.map(
+                (item) => ({
+                  src: IMAGE_BASE_URL + item.main_image,
+                  caption: item.en_alt_name || '',
+                  thumb: IMAGE_BASE_URL + item.main_image,
+                })
+              );
+              console.log('Albums created:', this.albums);
+            } else {
+              console.log('No project images found in response');
+              this.albums = [];
             }
-          },
-          error: (error) => {
-            console.error('Error fetching project data:', error);
+
+            // Update gallery albums
+            this.galleryAlbums = [...this.albums];
+            console.log('Gallery albums updated:', this.galleryAlbums);
           }
-        });
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Error fetching project data:', error);
+          this.isLoading = false;
+        },
+      });
     }
   }
 
@@ -190,8 +180,8 @@ private ProjectDetails=inject(ProjectsService)
       }
     );
 
-    // Open lightbox with gallery images (index + 1 to skip header)
-    this._lightbox.open(this.albums, index + 1, {
+    // Open lightbox with gallery images
+    this._lightbox.open(this.galleryAlbums, index, {
       wrapAround: true,
       showImageNumberLabel: true,
       centerVertically: true,

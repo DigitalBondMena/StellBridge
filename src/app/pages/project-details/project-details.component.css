@@ -1,1 +1,52 @@
+/* Gallery loading and empty states */
+.tt-gallery-loading,
+.tt-gallery-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  text-align: center;
+}
 
+.tt-gallery-loading-inner,
+.tt-gallery-empty-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+}
+
+.tt-gallery-loading-inner i,
+.tt-gallery-empty-inner i {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.tt-gallery-loading-inner span,
+.tt-gallery-empty-inner span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Header image placeholder */
+.ph-image-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f5f5f5;
+  color: #888;
+  gap: 1rem;
+}
+
+.ph-image-placeholder i {
+  font-size: 3rem;
+  opacity: 0.7;
+}
+
+.ph-image-placeholder span {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
