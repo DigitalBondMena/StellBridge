@@ -4,7 +4,7 @@ export interface IService {
 
 export interface Services {
   current_page: number;
-  data: Daum[];
+  data: serviceData[];
   first_page_url: string;
   from: number;
   last_page: number;
@@ -18,7 +18,7 @@ export interface Services {
   total: number;
 }
 
-export interface Daum {
+export interface serviceData {
   title: string;
   small_text: string;
   main_image: string;

@@ -6,6 +6,11 @@
           achieve impactful results.`"
 ></app-landing-section>
 <app-shared-service-card [services]="services"></app-shared-service-card>
-<!-- <app-shared-service-card
-  [services]="alternateServices"
-></app-shared-service-card> -->
+<div style="margin: 2rem 0 4rem 0">
+  <app-pagination
+    [links]="links()"
+    [currentPage]="currentPage()"
+    [lastPage]="lastPage()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

@@ -8,3 +8,12 @@
 ></app-landing-section>
 
 <app-projects-shared [projects]="allProjects()"></app-projects-shared>
+
+<div style="margin: 2rem 0 4rem 0">
+  <app-pagination
+    [links]="links()"
+    [currentPage]="currentPage()"
+    [lastPage]="lastPage()"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
+</div>

@@ -11,10 +11,9 @@ import { IService, ServiceResponse } from './services';
 export class ServicesService {
   private http = inject(HttpClient);
 
-  getServicesData(): Observable<IService> {
-    return this.http.get<IService>(`${BASE_URL}services`);
+  getServicesData(page: number = 1): Observable<IService> {
+    return this.http.get<IService>(`${BASE_URL}services?page=${page}`);
   }
-
 
   getServiceDetails(slug: string): Observable<ServiceResponse> {
     return this.http.get<ServiceResponse>(`${BASE_URL}service-detail/${slug}`);

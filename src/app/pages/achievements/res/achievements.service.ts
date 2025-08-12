@@ -10,7 +10,7 @@ import { IAchievements } from './achievements';
 export class AchievementsService {
   private http = inject(HttpClient);
 
-  getAchievements(): Observable<IAchievements> {
-    return this.http.get<IAchievements>(`${BASE_URL}achievements`);
+  getAchievements(page: number = 1): Observable<IAchievements> {
+    return this.http.get<IAchievements>(`${BASE_URL}achievements?page=${page}`);
   }
 }

@@ -60,6 +60,17 @@
         <!-- End tt-Grid -->
       </div>
       <!-- End tt-Gallery -->
+
+      <!-- Begin Pagination -->
+      <div style="margin: 3rem 0">
+        <app-pagination
+          [links]="links()"
+          [currentPage]="currentPage()"
+          [lastPage]="lastPage()"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+      <!-- End Pagination -->
     </div>
     <!-- /.tt-section-inner -->
   </div>
