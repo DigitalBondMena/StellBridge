@@ -200,20 +200,33 @@
   </div>
 </div> -->
 
-
 <app-landing-section
   [id]="'about-us'"
   [title]="aboutData()?.about?.main_title || 'About'"
   [subtitle]="'Us'"
-  [description]="aboutData()?.about?.main_text || 'Steel Bridge Contracting Company (SBC) respects your privacy and is committed to protecting any personal information you share with us through this website'"
+  [description]="
+    aboutData()?.about?.main_text ||
+    'Steel Bridge Contracting Company (SBC) respects your privacy and is committed to protecting any personal information you share with us through this website'
+  "
 ></app-landing-section>
 
-<div id="about-us" class="tt-section no-padding-bottom padding-bottom-xlg-40" *ngIf="aboutData()">
+<div
+  id="about-us"
+  class="tt-section no-padding-bottom padding-bottom-xlg-40"
+  *ngIf="aboutData()"
+>
   <div class="tt-section-inner tt-wrap">
     <div style="padding-bottom: 50px" class="tt-row tt-lg-row-reverse">
       <div class="tt-col-lg-6 margin-bottom-20">
         <figure>
-          <img  loading="lazy" [src]="IMAGE_BASE_URL + aboutData()?.about?.main_image || '/img/about/2.png'" [alt]="aboutData()?.about?.alt_image || 'About SEO'" />
+          <img
+            loading="lazy"
+            [src]="
+              IMAGE_BASE_URL + aboutData()?.about?.main_image ||
+              '/img/about/2.png'
+            "
+            [alt]="aboutData()?.about?.alt_image || 'About SEO'"
+          />
         </figure>
       </div>
       <div class="tt-col-lg-1"></div>
@@ -237,11 +250,7 @@
             padding: 0 10px;
           "
         >
-        @if (aboutData()?.about?.commitment_text) {
-          <p [innerHTML]="aboutData()?.about?.commitment_text | safeHtml"></p>
-        }
-        <!-- <p>{{ aboutData()?.about?.mission_text || 'Our mission is to contribute to the Kingdom’s vision by providing world-class solutions that meet the highest standards of safety, durability, and aesthetic appeal.' }}</p> -->
-
+          <div [innerHTML]="aboutData().about.main_text | safeHtml"></div>
         </div>
       </div>
     </div>
@@ -265,9 +274,7 @@
           "
           class="text-lg tt-anim-fadeinup"
         >
-          @if (aboutData()?.about?.about_text) {
-            <p [innerHTML]="aboutData()?.about?.about_text | safeHtml"></p>
-          }
+          <div [innerHTML]="aboutData().about.about_text | safeHtml"></div>
         </div>
       </div>
       <div class="tt-col-lg-1"></div>
@@ -275,7 +282,14 @@
       <div class="tt-col-lg-6 margin-bottom-20">
         <div class="tt-video ttv-portrait ttv-grayscale">
           <figure>
-            <img  loading="lazy" [src]="IMAGE_BASE_URL + aboutData()?.about?.about_image || '/img/logo-white.png'" [alt]="aboutData()?.about?.about_alt_image || 'About SBC'" />
+            <img
+              loading="lazy"
+              [src]="
+                IMAGE_BASE_URL + aboutData()?.about?.about_image ||
+                '/img/logo-white.png'
+              "
+              [alt]="aboutData()?.about?.about_alt_image || 'About SBC'"
+            />
           </figure>
         </div>
       </div>
@@ -284,11 +298,7 @@
       <h5 style="color: var(--tt-main-color)" class="text-center">
         Our Commitment
       </h5>
-      <p>
-        @if (aboutData()?.about?.commitment_text) {
-          <p [innerHTML]="aboutData()?.about?.commitment_text | safeHtml"></p>
-        }
-      </p>
+      <div [innerHTML]="aboutData().about.commitment_text | safeHtml"></div>
 
       <div class="mission-vision-container">
         <div class="mission-card">
@@ -311,11 +321,9 @@
             </div>
             <h3 class="card-title">Our Mission</h3>
           </div>
-          <p class="card-description" style="color: white">
-            @if (aboutData()?.about?.mission_text) {
-              <p [innerHTML]="aboutData()?.about?.mission_text | safeHtml"></p>
-            }
-          </p>
+          <div class="card-description" style="color: white">
+            <div [innerHTML]="aboutData().about.mission_text | safeHtml"></div>
+          </div>
         </div>
 
         <div class="vision-card">
@@ -344,14 +352,13 @@
             </div>
             <h3 class="card-title">Our Vision</h3>
           </div>
-          <p style="color: white" class="card-description">
-            @if (aboutData()?.about?.vision_text) {
-              <p [innerHTML]="aboutData()?.about?.vision_text | safeHtml"></p>
-            }
-          </p>
+          <div style="color: white" class="card-description">
+            <div [innerHTML]="aboutData().about.vision_text | safeHtml"></div>
+          </div>
         </div>
       </div>
-      <app-clients [clients]="aboutData()?.clients || []"></app-clients>
+
+      <app-clients [clients]="aboutData().clients"></app-clients>
     </div>
   </div>
 </div>
