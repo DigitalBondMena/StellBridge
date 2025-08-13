@@ -76,7 +76,25 @@
             </li>
             <li>
               <a [href]="'tel:' + socialLinks().first_phone" class="tt-link">
-                {{ socialLinks().first_phone }}
+                +966 {{ socialLinks().first_phone }}
+              </a>
+            </li>
+            <li>
+              <a [href]="'tel:' + socialLinks().second_phone" class="tt-link">
+                +966 {{ socialLinks().second_phone }}
+              </a>
+            </li>
+
+            <li>
+              <a
+                target="_blank"
+                [href]="
+                  'https://api.whatsapp.com/send?phone=966' +
+                  socialLinks().whatsapp_phone
+                "
+                class="tt-link"
+              >
+                +966 {{ socialLinks().whatsapp_phone }}
               </a>
             </li>
             <li>
@@ -104,17 +122,6 @@
                       ></a>
                     </div>
                   </li>
-                  } @if (socialLinks().linkedin_link !== null) {
-                  <li>
-                    <div class="magnetic-wrap">
-                      <a
-                        [href]="socialLinks().instagram_link"
-                        class="tt-magnetic-item"
-                        rel="noopener"
-                        ><i class="fa-brands fa-linkedin"></i
-                      ></a>
-                    </div>
-                  </li>
                   } @if (socialLinks().twitter_link !== null) {
                   <li>
                     <div class="magnetic-wrap">
@@ -126,7 +133,63 @@
                       ></a>
                     </div>
                   </li>
+                  } @if (socialLinks().linkedin_link !== null) {
+                  <li>
+                    <div class="magnetic-wrap">
+                      <a
+                        [href]="socialLinks().instagram_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
+                        ><i class="fa-brands fa-linkedin"></i
+                      ></a>
+                    </div>
+                  </li>
+                  } @if (socialLinks().youtube_link !== null) {
+                  <li>
+                    <div class="magnetic-wrap">
+                      <a
+                        [href]="socialLinks().youtube_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
+                        ><i class="fa-brands fa-youtube"></i
+                      ></a>
+                    </div>
+                  </li>
+                  } @if (socialLinks().snapchat_link !== null) {
+                  <li>
+                    <div class="magnetic-wrap">
+                      <a
+                        [href]="socialLinks().snapchat_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
+                        ><i class="fa-brands fa-snapchat"></i
+                      ></a>
+                    </div>
+                  </li>
+                  } @if (socialLinks().telegram_link !== null) {
+                  <li>
+                    <div class="magnetic-wrap">
+                      <a
+                        [href]="socialLinks().telegram_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
+                        ><i class="fa-brands fa-telegram"></i
+                      ></a>
+                    </div>
+                  </li>
+                  }@if (socialLinks().tiktok_link !== null) {
+                  <li>
+                    <div class="magnetic-wrap">
+                      <a
+                        [href]="socialLinks().tiktok_link"
+                        class="tt-magnetic-item"
+                        rel="noopener"
+                        ><i class="fa-brands fa-tiktok"></i
+                      ></a>
+                    </div>
+                  </li>
                   }
+
                   <!-- <li><a href="https://x.com/Themetorium" class="tt-magnetic-item" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a></li> -->
                 </ul>
               </div>
@@ -206,15 +269,21 @@
           align-items: center;
         "
       >
-        <span> Digital Bond </span>
+        <a
+          href="https://digitalbondmena.com/"
+          target="_blank"
+          style="color: white"
+        >
+          Digital Bond
+        </a>
 
-        <figure>
+        <a href="https://digitalbondmena.com/" target="_blank">
           <img
             style="width: 30px; height: auto"
             src="/img/home/logo.png"
-            alt=""
+            alt="digital bond"
           />
-        </figure>
+        </a>
         <span> All rights reserved &copy; 2025 </span>
       </div>
     </div>

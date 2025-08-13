@@ -29,12 +29,24 @@
               <h4 class="contact-label">Phone Numbers</h4>
               <p class="contact-value">
                 <a href="tel:{{ contactUs().first_phone }}">
-                  {{ contactUs().first_phone }}
+                  +966 {{ contactUs().first_phone }}
                 </a>
               </p>
               <p class="contact-value">
                 <a href="tel:{{ contactUs().second_phone }}">
-                  {{ contactUs().second_phone }}
+                  +966 {{ contactUs().second_phone }}
+                </a>
+              </p>
+              <p class="contact-value">
+                <a
+                  target="_blank"
+                  [href]="
+                    'https://api.whatsapp.com/send?phone=966' +
+                    contactUs().whatsapp_phone
+                  "
+                  class="tt-link"
+                >
+                  +966 {{ contactUs().whatsapp_phone }}
                 </a>
               </p>
             </div>
