@@ -41,16 +41,16 @@ export class TestimonialsComponent implements AfterViewInit, OnDestroy {
     this.isBrowser.set(isPlatformBrowser(this.platformId));
 
     // Register GSAP plugins only in browser
-    if (this.isBrowser()) {
-      gsap.registerPlugin(ScrollTrigger);
-    }
+    // if (this.isBrowser()) {
+    //   gsap.registerPlugin(ScrollTrigger);
+    // }
   }
 
   ngAfterViewInit(): void {
     if (this.isBrowser()) {
       // Wait for view to be fully rendered
       setTimeout(() => {
-        this.initializeStickyTestimonials();
+        // this.initializeStickyTestimonials();
       }, 100);
     }
   }

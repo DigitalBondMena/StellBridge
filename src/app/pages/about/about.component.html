@@ -250,7 +250,9 @@
             padding: 0 10px;
           "
         >
-          <div [innerHTML]="aboutData().about.main_text | safeHtml"></div>
+          @if (aboutData().about?.main_text) {
+          <div [innerHTML]="aboutData().about?.main_text | safeHtml"></div>
+          }
         </div>
       </div>
     </div>

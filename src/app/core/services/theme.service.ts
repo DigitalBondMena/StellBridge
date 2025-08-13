@@ -56,7 +56,7 @@ export class ThemeService {
     await this.loadGSAP();
 
     // Initialize the service
-    this.init();
+    // this.init();
   }
 
   /**
@@ -81,54 +81,54 @@ export class ThemeService {
   /**
    * Initialize theme functionality (Angular-compatible way)
    */
-  private init(): void {
-    if (this._isInitialized()) {
-      return;
-    }
+  // private init(): void {
+  //   if (this._isInitialized()) {
+  //     return;
+  //   }
 
-    // Get style switch element
-    this.styleSwitch = document.querySelector('.tt-style-switch') || undefined;
+  //   // Get style switch element
+  //   this.styleSwitch = document.querySelector('.tt-style-switch') || undefined;
 
-    // Initialize theme state from localStorage
-    this.loadThemeFromStorage();
+  //   // Initialize theme state from localStorage
+  //   // this.loadThemeFromStorage();
 
-    // Setup style switch button using Angular's Renderer2
-    this.setupStyleSwitch();
+  //   // Setup style switch button using Angular's Renderer2
+  //   // this.setupStyleSwitch();
 
-    this._isInitialized.set(true);
-    console.log('✅ Theme service initialized with Angular patterns');
-  }
+  //   this._isInitialized.set(true);
+  //   console.log('✅ Theme service initialized with Angular patterns');
+  // }
 
   /**
    * Load theme from localStorage (Angular-compatible)
    */
-  private loadThemeFromStorage(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+  // private loadThemeFromStorage(): void {
+  //   if (!isPlatformBrowser(this.platformId)) {
+  //     return;
+  //   }
 
-    try {
-      // Check for saved theme in localStorage
-      const savedTheme = localStorage.getItem('tt-lightmode-on');
+  //   try {
+  //     // Check for saved theme in localStorage
+  //     const savedTheme = localStorage.getItem('tt-lightmode-on');
 
-      // Check if light mode should be enabled by default
-      const hasLightModeDefault = document.body.classList.contains(
-        'tt-lightmode-default'
-      );
+  //     // Check if light mode should be enabled by default
+  //     const hasLightModeDefault = document.body.classList.contains(
+  //       'tt-lightmode-default'
+  //     );
 
-      // Determine initial theme state
-      if (hasLightModeDefault && savedTheme !== 'disabled') {
-        this.setTheme('light', false); // Don't animate on init
-      } else if (savedTheme === 'enabled') {
-        this.setTheme('light', false);
-      } else {
-        this.setTheme('dark', false);
-      }
-    } catch (error) {
-      console.warn('Could not load theme from localStorage:', error);
-      this.setTheme('dark', false);
-    }
-  }
+  //     // Determine initial theme state
+  //     if (hasLightModeDefault && savedTheme !== 'disabled') {
+  //       this.setTheme('light', false); // Don't animate on init
+  //     } else if (savedTheme === 'enabled') {
+  //       this.setTheme('light', false);
+  //     } else {
+  //       this.setTheme('dark', false);
+  //     }
+  //   } catch (error) {
+  //     console.warn('Could not load theme from localStorage:', error);
+  //     this.setTheme('dark', false);
+  //   }
+  // }
 
   /**
    * Setup style switch button using Angular's Renderer2
@@ -142,7 +142,7 @@ export class ThemeService {
       'click',
       (e: Event) => {
         e.preventDefault();
-        this.toggleTheme();
+        // this.toggleTheme();
       }
     );
   }
@@ -150,29 +150,29 @@ export class ThemeService {
   /**
    * Set theme with Angular patterns
    */
-  public setTheme(theme: Theme, animate: boolean = true): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+  // public setTheme(theme: Theme, animate: boolean = true): void {
+  //   if (!isPlatformBrowser(this.platformId)) {
+  //     return;
+  //   }
 
-    const previousTheme = this._currentTheme();
-    this._currentTheme.set(theme);
+  //   const previousTheme = this._currentTheme();
+  //   this._currentTheme.set(theme);
 
-    // Update DOM using Renderer2
-    this.updateBodyClasses(theme);
-    this.updateStyleSwitchState(theme);
-    this.saveThemeToStorage(theme);
+  //   // Update DOM using Renderer2
+  //   this.updateBodyClasses(theme);
+  //   this.updateStyleSwitchState(theme);
+  //   this.saveThemeToStorage(theme);
 
-    // Animate if requested and theme changed
-    if (animate && previousTheme !== theme) {
-      this.animateSwitch();
-    }
+  //   // Animate if requested and theme changed
+  //   if (animate && previousTheme !== theme) {
+  //     this.animateSwitch();
+  //   }
 
-    // Dispatch theme change event
-    this.dispatchThemeChangeEvent(theme);
+  //   // Dispatch theme change event
+  //   this.dispatchThemeChangeEvent(theme);
 
-    console.log(`🎨 Theme changed to: ${theme}`);
-  }
+  //   console.log(`🎨 Theme changed to: ${theme}`);
+  // }
 
   /**
    * Update body classes using Renderer2
@@ -219,10 +219,10 @@ export class ThemeService {
   /**
    * Toggle theme (reactive with signals)
    */
-  public toggleTheme(): void {
-    const newTheme: Theme = this._currentTheme() === 'light' ? 'dark' : 'light';
-    this.setTheme(newTheme, true);
-  }
+  // public toggleTheme(): void {
+  //   const newTheme: Theme = this._currentTheme() === 'light' ? 'dark' : 'light';
+  //   this.setTheme(newTheme, true);
+  // }
 
   /**
    * Animate style switch button (with null safety)
