@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   HostListener,
   inject,
   Input,
-  OnDestroy,
-  OnInit,
   Renderer2,
   signal,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -28,9 +26,7 @@ interface AccordionItem {
   templateUrl: './shared-service-card.component.html',
   styleUrl: './shared-service-card.component.css',
 })
-export class SharedServiceCardComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class SharedServiceCardComponent {
   private router = inject(Router);
   private renderer = inject(Renderer2);
   private elementRef = inject(ElementRef);
@@ -49,13 +45,21 @@ export class SharedServiceCardComponent
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.initializeAccordionItems();
-  }
+  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
-    this.initializeAccordions();
-    this.initializeHorizontalAccordion();
+  // ngAfterViewInit(): void {
+  //   this.initializeAccordionItems();
+  //   this.initializeAccordions();
+  //   this.initializeHorizontalAccordion();
+  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    setTimeout(() => {
+      if (changes['services']) {
+        this.initializeAccordionItems();
+        this.initializeAccordions();
+        this.initializeHorizontalAccordion();
+      }
+    }, 1000);
   }
 
   ngOnDestroy(): void {
