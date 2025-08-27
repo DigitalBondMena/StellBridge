@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Big Shoulders";
+  src: url("./Shoulders/BigShoulders-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+  font-weight: 100 900; /* supports full weight range */
+  font-style: normal;
+  font-display: swap;
+}

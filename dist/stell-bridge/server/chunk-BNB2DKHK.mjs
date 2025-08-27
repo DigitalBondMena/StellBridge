@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{f as a}from"./chunk-MUAL66RQ.mjs";import{Fc as n,K as r,Q as e}from"./chunk-OAXX65Y3.mjs";var s=class o{http=e(a);getContactUs(){return this.http.get(`${n}contact`)}ContactUsForm(t){return this.http.post("https://steel.bondersmena.com/api/contact-us-form/store",t)}bookCall(t){return this.http.post("https://steel.bondersmena.com/api/book-call/store",t)}static \u0275fac=function(c){return new(c||o)};static \u0275prov=r({token:o,factory:o.\u0275fac,providedIn:"root"})};export{s as a};
