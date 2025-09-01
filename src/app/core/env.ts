@@ -1,2 +1,2 @@
-export const BASE_URL = 'https://steel.bondersmena.com/api/site/';
-export const IMAGE_BASE_URL = 'https://bondersmena.com/steeldashboard/';
+export const BASE_URL = 'https://api.steelbridgeksa.com/api/site/';
+export const IMAGE_BASE_URL = 'https://dashboard.steelbridgeksa.com/';
