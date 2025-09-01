@@ -1031,3 +1031,12 @@
     transform: none;
   }
 }
+.nationa-day-logo {
+  display: flex;
+  align-items: center;
+  display: none;
+
+  @media screen and (min-width: 1500px) {
+    display: flex;
+  }
+}
