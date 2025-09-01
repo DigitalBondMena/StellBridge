@@ -1,6 +1,9 @@
 <div id="tt-page-content">
-  <app-hero [slider]="slider()"></app-hero>
-  <div id="about-ceo">
+  <app-hero
+    style="position: relative; z-index: 2"
+    [slider]="slider()"
+  ></app-hero>
+  <div id="about-ceo" style="position: relative; z-index: 1">
     <app-about-ceo [aboutHome]="aboutHome()"></app-about-ceo>
     <app-about-sbc [aboutHome]="aboutHome()"></app-about-sbc>
   </div>
