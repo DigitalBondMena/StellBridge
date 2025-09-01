@@ -157,15 +157,6 @@
   width: 150px;
 }
 
-.rounded-shape {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  overflow: hidden;
-  pointer-events: none;
-}
-
 .horisontal-shape {
   position: absolute;
   top: 0px;
