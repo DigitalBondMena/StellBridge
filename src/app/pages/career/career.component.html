@@ -1,0 +1,24 @@
+@if (allCareers()) {
+
+  <app-landing-section
+    [title]="``"
+    [subtitle]="`Careers`"
+    [description]="`Steel Bridge Contracting Company (SBC) respects your privacy and is
+          committed to protecting any personal information you share with us
+          through this website.`"
+    [id]="'projects'"
+  ></app-landing-section>
+  
+  <app-shared-career [careers]="paginatedData()"></app-shared-career>
+  
+  <div style="margin: 2rem 0 4rem 0">
+    <app-client-pagination
+    [totalItems]="allCareers().length"
+    [itemsPerPage]="itemsPerPage"
+    [currentPage]="currentPage()"
+    (pageChange)="onPageChange($event)">
+    >
+  
+    </app-client-pagination>
+  </div>
+}

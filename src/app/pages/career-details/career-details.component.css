@@ -1,0 +1,44 @@
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section-list li {
+  background: #222; /* غامق قريب من الخلفية */
+  border: 1px solid #2e2e2e; /* تحديد بسيط */
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #f1f1f1; /* نص فاتح */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+}
+
+.section-list h3 {
+  margin: 0 0 0.8rem;
+  font-size: 1.25rem;
+  color: #a01717; /* لون مميز للعناوين */
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.4rem;
+}
+
+.section-list div {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+.from {
+  position: sticky;
+  top: 100px; /* المسافة من فوق (غيّرها حسب ارتفاع الهيدر عندك) */
+  z-index: 100;
+  align-self: flex-start; /* يخليها تبدأ من فوق العمود */
+}

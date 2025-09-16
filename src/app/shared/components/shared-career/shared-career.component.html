@@ -1,0 +1,36 @@
+<div
+  id="projects"
+  class="tt-section no-padding-top padding-top-xlg-80 padding-bottom-20 padding-bottom-xlg-80"
+>
+  <div class="tt-section-inner">
+    <div class="tt-portfolio-preview-list tt-ppli-portrait tt-ppli-hover">
+      <div class="tt-ppl-items-list">
+        @for (project of careers(); track project.id) {
+        <a
+          [routerLink]="['/career-details', project.slug]"
+          class="tt-ppl-item"
+          
+        >
+          <div class="tt-ppl-item-inner">
+            <div class="tt-ppl-item-holder">
+              <div class="tt-ppli-col tt-ppli-col-count">
+                <div class="tt-ppli-count"></div>
+              </div>
+              <!-- /.tt-ppli-col -->
+              <div class="tt-ppli-col tt-ppli-col-caption">
+                <div class="tt-ppli-caption">
+                  <h2 class="tt-ppli-title">{{ project.main_title }}</h2>
+                </div>
+              </div>
+
+              <div
+                class="tt-ppli-col tt-ppli-col-info tt-justify-content-md-end"
+              ></div>
+            </div>
+          </div>
+        </a>
+        }
+      </div>
+    </div>
+  </div>
+</div>

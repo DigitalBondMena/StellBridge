@@ -1,0 +1,57 @@
+
+
+    <nav
+      aria-label="Pagination"
+      style="display: flex; align-items: center; justify-content: center; margin-top: 2rem;"
+    >
+      <ul
+        style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; list-style: none; padding: 0;"
+      >
+        <!-- Previous -->
+        <li>
+          <button
+            [disabled]="currentPage() === 1"
+            [style.opacity]="currentPage() === 1 ? '0.5' : '1'"
+            [style.cursor]="currentPage() === 1 ? 'not-allowed' : 'pointer'"
+            style="padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem;"
+            (click)="changePage(currentPage() - 1)"
+            class="pag-btn flex items-center"
+          >
+            
+            Previous
+          </button>
+        </li>
+    
+        <!-- Pages -->
+        @for (page of pages(); track page) {
+          <li>
+            <button
+              [style.background-color]="page === currentPage() ? '#EBF5FF' : 'white'"
+              [style.color]="page === currentPage() ? '#1E40AF' : '#4B5563'"
+              [style.border-color]="page === currentPage() ? '#93C5FD' : '#D1D5DB'"
+              [style.font-weight]="page === currentPage() ? '600' : '500'"
+              style="padding: 0.5rem 0.75rem; border: 1px solid; border-radius: 0.5rem; min-width: 40px;"
+              (click)="changePage(page)"
+            >
+              {{ page }}
+            </button>
+          </li>
+        }
+    
+        <!-- Next -->
+        <li>
+          <button
+            [disabled]="currentPage() === totalPages()"
+            [style.opacity]="currentPage() === totalPages() ? '0.5' : '1'"
+            [style.cursor]="currentPage() === totalPages() ? 'not-allowed' : 'pointer'"
+            style="padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 0.5rem;"
+            (click)="changePage(currentPage() + 1)"
+            class="pag-btn flex items-center"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+  
+

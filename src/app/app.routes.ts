@@ -21,7 +21,7 @@ export const routes: Routes = [
         (m) => m.ProjectComponent
       ),
   },
-  /* Project page  */
+  /* Project Details page  */
   {
     path: 'project-details/:id',
     loadComponent: () =>
@@ -29,7 +29,22 @@ export const routes: Routes = [
         (m) => m.ProjectDetailsComponent
       ),
   },
-
+/* Career page  */
+  {
+    path: 'career',
+    loadComponent: () =>
+      import('./pages/career/career.component').then(
+        (m) => m.CareerComponent
+      ),
+  },
+  /* Career details page  */
+  {
+    path: 'career-details/:slug',
+    loadComponent: () =>
+      import('./pages/career-details/career-details.component').then(
+        (m) => m.CareerDetailsComponent
+      ),
+  },
   /* Services page  */
   {
     path: 'service-details/:slug',

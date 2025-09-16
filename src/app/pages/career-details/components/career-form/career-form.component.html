@@ -1,0 +1,115 @@
+<div class="booking-modal-body">
+
+    <form
+              (ngSubmit)="onBookingSubmit()"
+              class="booking-form"
+              [formGroup]="formData"
+            >
+              <!-- Name Field -->
+              <div class="booking-form-group">
+                <label for="booking-name" class="booking-form-label">
+                  <i class="fas fa-user"></i>
+                  Full Name
+                </label>
+                <input
+                  id="booking-name"
+                  type="text"
+                  class="booking-form-input"
+                  placeholder="Enter your full name"
+                  formControlName="name"
+                />
+                @if (formData.controls.name.errors &&
+                formData.controls.name.touched) { @if
+                (formData.controls.name.errors['required']) {
+                <p class="error-message">Name is required</p>
+                } @if (formData.controls.name.errors['minlength']) {
+                <p class="error-message">Name must be at least 3 characters</p>
+                } }
+              </div>
+    
+              <!-- Email Field -->
+              <div class="booking-form-group">
+                <label for="booking-email" class="booking-form-label">
+                  <i class="fas fa-envelope"></i>
+                  Email Address
+                </label>
+                <input
+                  id="booking-email"
+                  type="email"
+                  class="booking-form-input"
+                  placeholder="Enter your email address"
+                  formControlName="email"
+                />
+                @if (formData.controls.email.errors &&
+                formData.controls.email.touched) { @if
+                (formData.controls.email.errors['required']) {
+                <p class="error-message">Email is required</p>
+                } @if (formData.controls.email.errors['email']) {
+                <p class="error-message">Invalid email address</p>
+                } }
+              </div>
+    
+              <!-- Phone Field -->
+              <div class="booking-form-group">
+                <label for="booking-phone" class="booking-form-label">
+                  <i class="fas fa-phone"></i>
+                  Phone Number
+                </label>
+                <input
+                  id="booking-phone"
+                  type="tel"
+                  class="booking-form-input"
+                  placeholder="Enter your phone number"
+                  formControlName="phone"
+                />
+                @if (formData.controls.phone.errors &&
+                formData.controls.phone.touched) { @if
+                (formData.controls.phone.errors['required']) {
+                <p class="error-message">Phone is required</p>
+                } @if (formData.controls.phone.errors['minlength']) {
+                <p class="error-message">Phone must be at least 10 characters</p>
+                } }
+              </div>
+    
+              <!-- Date Field -->
+              <div class="booking-form-group">
+                <label for="booking-date" class="booking-form-label">
+                  <i class="fas fa-calendar"></i>
+                  Preferred Date
+                </label>
+                <input
+                  id="booking-date"
+                  type="date"
+                  class="booking-form-input"
+                  formControlName="free_time"
+                  [min]="getTodayDate()"
+                />
+                @if (formData.controls.free_time.errors &&
+                formData.controls.free_time.touched) { @if
+                (formData.controls.free_time.errors['required']) {
+                <p class="error-message">Date is required</p>
+                } @if (formData.controls.free_time.errors['min']) {
+                <p class="error-message">Date must be today or later</p>
+                } }
+              </div>
+    
+              <!-- Submit Button -->
+              <div class="booking-form-actions">
+                <button
+                  type="submit"
+                  class="booking-submit-btn"
+                  [disabled]="!isBookingFormValid() || isBookingSubmitting()"
+                >
+                  <i
+                    class="fas"
+                    [class.fa-phone]="!isBookingSubmitting()"
+                    [class.fa-spinner]="isBookingSubmitting()"
+                    [class.fa-spin]="isBookingSubmitting()"
+                  ></i>
+                  <span>{{
+                    isBookingSubmitting() ? "Booking..." : "Book Call"
+                  }}</span>
+                </button>
+              </div>
+            </form>
+</div>
