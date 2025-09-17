@@ -12,13 +12,13 @@
   border-radius: 12px;
   padding: 1.5rem;
   color: #f1f1f1; /* نص فاتح */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .section-list li:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
 .section-list h3 {
@@ -35,10 +35,11 @@
   line-height: 1.6;
   color: #ccc;
 }
-
+::ng-deep .section-list div > * {
+  text-transform: capitalize;
+}
 .from {
   position: sticky;
-  top: 100px; /* المسافة من فوق (غيّرها حسب ارتفاع الهيدر عندك) */
-  z-index: 100;
-  align-self: flex-start; /* يخليها تبدأ من فوق العمود */
+  top: 20px; /* أو 0 */
+  align-self: flex-start; /* مهم لو العمود كبير */
 }

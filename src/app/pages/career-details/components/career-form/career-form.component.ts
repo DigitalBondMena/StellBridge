@@ -1,126 +1,116 @@
-import { Component, computed, inject, input, PLATFORM_ID, signal } from '@angular/core';
-import { Contact, IBookCall } from '../../../contact-us/res/contact-us';
-import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject, input, signal, SimpleChanges } from '@angular/core';
+import { Contact } from '../../../contact-us/res/contact-us';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactUsService } from '../../../contact-us/res/contact-us.service';
-import { BookingModalService } from '../../../../shared/services/booking-modal.service';
+import { CareerService } from '../../../career/res/career.service';
+
 
 @Component({
   selector: 'app-career-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './career-form.component.html',
   styleUrl: './career-form.component.css'
 })
 export class CareerFormComponent {
-private submitting = signal<boolean>(false);
-  private submitStatus = signal<'success' | 'error' | null>(null);
-
-  private fb = inject(FormBuilder);
-  private contactUsService = inject(ContactUsService);
-  private bookingModalService = inject(BookingModalService);
-  private platformId = inject(PLATFORM_ID);
-
+  isSubmitting = signal<boolean>(false);
+  submitStatus = signal<'success' | 'error' | null>(null);
+  jopTitle = input<string | undefined>('');
+  private readonly fb = inject(FormBuilder);
+  private readonly careerService = inject(CareerService);
   contactUs = input<Contact>({} as Contact);
-
-  isSubmitting = computed(() => this.submitting());
-  submissionStatus = computed(() => this.submitStatus());
-
-  // Computed values from booking modal service
-  modalOpen = computed(() => this.bookingModalService.modalOpen());
-  successPopupVisible = computed(() =>
-    this.bookingModalService.successPopupVisible()
-  );
-  isBookingSubmitting = computed(() =>
-    this.bookingModalService.bookingSubmitting()
-  );
-
-  // Form data for contact form (if needed for other purposes)
+  fileName = signal<string>('');
   formData = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.minLength(10)]],
-    free_time: ['', Validators.required],
+    phone: ['', [Validators.required, Validators.pattern(/^5\d{8}$/)]],
+    jop_title: ['', [Validators.required, Validators.minLength(3)]],
+    current_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    experience: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    expected_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+    cover_leter: ['', [Validators.required, Validators.minLength(3)]], // ✨ هنا نخليها نص بس
+    jop_cv: [null, [Validators.required, this.fileValidator]] // ✨ هنا يتحط الـ validator بتاع الملف
   });
-
-  // Check if running in browser for SSR safety
-  isBrowser = computed(() => isPlatformBrowser(this.platformId));
-
-  ngOnInit(): void {
-    // Register this form with the service
-    this.bookingModalService.registerForm(this.formData);
+  constructor() {
+    // 🟢 effect بيربط signal بالـ formControl
+    effect(() => {
+      const title = this.jopTitle();
+      if (title) {
+        this.formData.get('jop_title')?.setValue(title);
+      }
+    });
   }
+  fileValidator(control: any) {
+    const file = control.value;
+    console.log(file);
 
-  ngOnDestroy(): void {
-    // Unregister when component is destroyed
-    this.bookingModalService.unregisterForm();
-  }
-
-  // Booking modal methods - delegate to service
-  openBookingModal(): void {
-    if (this.isBrowser()) {
-      this.bookingModalService.openBookingModal();
+    if (file) {
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        return { fileType: true }
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        return { fileSize: true }
+      }
     }
+    return null
   }
 
-  closeBookingModal(): void {
-    if (this.isBrowser()) {
-      this.bookingModalService.closeBookingModal();
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.formData.patchValue({ jop_cv: file });
+      this.fileName.set(file.name);
+      this.formData.get('jop_cv')?.updateValueAndValidity();
     }
+    this.formData.get('jop_cv')?.markAsDirty();
   }
 
-  isBookingFormValid(): boolean {
-    return this.bookingModalService.isBookingFormValid(this.formData.value);
+
+
+  isFormValid() {
+    return this.formData.valid;
   }
 
-  onModalBackdropClick(event: Event): void {
-    this.bookingModalService.onModalBackdropClick(event);
-  }
-
-  getTodayDate(): string {
-    return this.bookingModalService.getTodayDate();
-  }
-
-  // Booking form submission handler - passes reactive form data to service
-  onBookingSubmit(): void {
+  onBookingSubmit() {
     if (this.formData.invalid) {
       this.formData.markAllAsTouched();
-      return;
-    }
+      this.formData.markAsDirty();
+      return
+    };
 
-    const formData = this.formData.value;
-    this.bookingModalService.onBookingSubmit(formData);
-  }
-
-  // Contact form submission handler (for future use if needed)
-  onContactSubmit(): void {
-    if (this.submitting()) {
-      return;
-    }
-
-    if (this.formData.invalid) {
-      this.formData.markAllAsTouched();
-      return;
-    }
-
-    this.submitting.set(true);
+    this.isSubmitting.set(true);
     this.submitStatus.set(null);
 
-    // Get current form data
-    const data = this.formData.value;
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', this.formData.get('name')?.value || '');
+    formDataToSend.append('email', this.formData.get('email')?.value || '');
+    formDataToSend.append('phone', this.formData.get('phone')?.value || '');
+    formDataToSend.append('jop_title', this.formData.get('jop_title')?.value || '');
+    formDataToSend.append('current_salary', this.formData.get('current_salary')?.value || '');
+    formDataToSend.append('experience', this.formData.get('experience')?.value || '');
+    formDataToSend.append('expected_salary', this.formData.get('expected_salary')?.value || '');
+    formDataToSend.append('cover_leter', this.formData.get('cover_leter')?.value || '');
 
-    this.contactUsService.bookCall(data as IBookCall).subscribe({
+    const cvFile = this.formData.get('jop_cv')?.value;
+    if (cvFile) {
+      formDataToSend.append('jop_cv', cvFile);
+    }
+    this.careerService.postCareerForm(formDataToSend).subscribe({
       next: () => {
+        this.isSubmitting.set(false);
         this.submitStatus.set('success');
         this.formData.reset();
       },
-      error: () => {
+      error: (err) => {
+        console.error('❌ Error:', err);
+        this.isSubmitting.set(false);
         this.submitStatus.set('error');
-        this.formData.reset();
-      },
-      complete: () => {
-        this.formData.reset();
-        this.submitting.set(false);
-      },
-    });
+      }
+    })
   }
 }
+

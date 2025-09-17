@@ -31,7 +31,7 @@ export interface Section {
   styleUrl: './career-details.component.css'
 })
 export class CareerDetailsComponent {
-private activatedRoute = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
   private careerSlug = signal<string | null>(null);
   careerDetails = signal<ICareer | null>(null);
   private careerService = inject(CareerService);
@@ -43,6 +43,7 @@ private activatedRoute = inject(ActivatedRoute);
       this.careerSlug.set(next.get('slug'));
       console.log(this.careerSlug());
       this.fetchServiceData();
+
     });
   }
 
@@ -54,7 +55,7 @@ private activatedRoute = inject(ActivatedRoute);
           next: (response) => {
             if (response) {
               console.log(response);
-              this.careerDetails.set(response.date);              
+              this.careerDetails.set(response.date);
             }
           },
           error: (error) => {

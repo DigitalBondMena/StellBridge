@@ -1,68 +1,144 @@
+@if (careerDetails()) {
 <app-landing-section
   [id]="'service-details'"
   [title]="careerDetails()?.en_main_title ?? ''"
   [subtitle]="careerDetails()?.experience ?? ''"
   [description]="`Comprehensive digital services to boost your online presence and
-  achieve impactful results.`"
+    achieve impactful results.`"
   [wrapSubTitle]="true"
 ></app-landing-section>
 <div id="tt-page-content">
   <div
     id="service-details"
-    class=" padding-top-lg-60 padding-top-80 padding-bottom-lg-40 border-top"
+    class="padding-top-lg-60 padding-top-80 padding-bottom-lg-40 border-top"
   >
-    <div class=" max-width-1600">
-      
+    <div class="max-width-1600">
       <div class="tt-row">
-        <div class="tt-col-lg-3">
+        <div class="tt-col-xl-3">
+          <div></div>
           <div class="from">
-            <app-career-form></app-career-form>
+            @if (careerDetails()?.en_main_title) {
+            <app-career-form
+              [jopTitle]="careerDetails()?.en_main_title"
+            ></app-career-form>
+            }
           </div>
         </div>
 
-        <div class="tt-col-lg-9 tt-align-self-center tt-anim-fadeinup">
-          <h2 style=" margin-bottom: 40px" >
-        {{careerDetails()?.en_main_title}}
-        <!-- <span style="color: var(--tt-main-color)"> &amp; Identity </span> -->
-      </h2>
+        <div class="tt-col-xl-9 tt-align-self-center tt-anim-fadeinup">
+          <h2 style="margin-bottom: 40px">
+            {{ careerDetails()?.en_main_title }}
+            <!-- <span style="color: var(--tt-main-color)"> &amp; Identity </span> -->
+          </h2>
           <div>
             <ul class="section-list">
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               <li>
-                  <h3>Job Description</h3>
-                  <div [innerHTML]="careerDetails()?.en_main_description| safeHtml">
-                  </div>
-                </li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
+              <li>
+                <h3>Job Description</h3>
+                <div
+                  [innerHTML]="careerDetails()?.en_main_description | safeHtml"
+                ></div>
+              </li>
               @for (section of careerDetails()?.sections; track section.id) {
-                <li>
-                  <h3>{{section.main_title}}</h3>
-                  <div [innerHTML]="section.main_description | safeHtml">
-                  </div>
-                </li>
+              <li>
+                <h3>{{ section.main_title }}</h3>
+                <div [innerHTML]="section.main_description | safeHtml"></div>
+              </li>
               }
             </ul>
           </div>
@@ -72,3 +148,4 @@
     </div>
   </div>
 </div>
+}

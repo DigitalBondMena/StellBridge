@@ -320,7 +320,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 25px;
 }
-
+.booking-textarea {
+  min-height: 100px;
+  max-height: 200px;
+}
 .form-group {
   display: flex;
   flex-direction: column;
@@ -1092,3 +1095,151 @@
   }
 }
 
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.file-upload-wrapper label i {
+  transition: transform 0.5s;
+}
+.file-upload-wrapper:hover label i {
+  transform: translateY(-3px);
+}
+.file-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #a01717;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload-btn:hover {
+  box-shadow: 0 0 5px rgba(255, 107, 53, 0.3);
+}
+
+.file-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-weight: 500;
+}
+
+.file-placeholder {
+  font-style: italic;
+  color: #999;
+}
+
+.error-messages {
+  margin-top: 6px;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.success-message,
+.submit-success-message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #222222;
+  color: #1e7e34;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+.submit-success-message {
+  color: #e74c3c;
+}
+.success-message i {
+  color: #28a745;
+  font-size: 16px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #333;
+}
+
+.flag-sa {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.flag-sa img {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.phone-input-wrapper .booking-form-input {
+  flex: 1;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 10px;
+  outline: none;
+  font-size: 14px;
+}
+input:is(:-webkit-autofill, :autofill) {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: none !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-background-color: transparent !important;
+  background-color: transparent !important;
+}
+
+input:is(:-webkit-autofill, :autofill):focus {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: none !important;
+  -webkit-text-fill-color: white !important;
+  --webkit-background-color: transparent !important;
+  background-color: transparent !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
