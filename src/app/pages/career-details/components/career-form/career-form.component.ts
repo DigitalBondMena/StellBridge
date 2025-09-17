@@ -27,7 +27,7 @@ export class CareerFormComponent {
     current_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     experience: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     expected_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-    cover_leter: ['', [Validators.required, Validators.minLength(3)]], 
+    cover_leter: ['', [Validators.minLength(3)]], 
     jop_cv: [null, [Validators.required, this.fileValidator]] 
   });
   constructor() {
