@@ -759,7 +759,6 @@
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .booking-form-group {
@@ -1145,16 +1144,20 @@
 .error-messages {
   margin-top: 6px;
 }
-
+.error-messages-container {
+min-height: 30px;
+}
 .error-message {
   color: #e74c3c;
   font-size: 13px;
   display: flex;
   align-items: center;
   gap: 6px;
+  margin: 0;
+  padding: 0;
 }
 .success-message,
-.submit-success-message {
+.submit-error-message {
   margin-top: 15px;
   padding: 12px;
   border-radius: 8px;
@@ -1166,7 +1169,7 @@
   gap: 8px;
   animation: fadeIn 0.4s ease-in-out;
 }
-.submit-success-message {
+.submit-error-message {
   color: #e74c3c;
 }
 .success-message i {
@@ -1242,4 +1245,11 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+input#title:disabled {
+  cursor: not-allowed;       /* شكل الماوس */
+  color: #999;               /* لون النص */
+}
+input#title:disabled:hover {
+  border: 2px solid #333;
 }

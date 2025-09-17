@@ -1,10 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, inject, Renderer2, signal, ViewChild } from '@angular/core';
 import { IMAGE_BASE_URL } from '../../core/env';
 import { ActivatedRoute } from '@angular/router';
 import { SafeHtmlPipe } from '../../core/pipes/safe-html.pipe';
 import { LandingSectionComponent } from '../home/components/landing-section/landing-section.component';
 import { CareerService } from '../career/res/career.service';
 import { CareerFormComponent } from "./components/career-form/career-form.component";
+import { StickyDirective } from "../../shared/directives/sticky.directive";
 export interface ICareer {
   id: number
   jop_category_id: number
@@ -26,7 +27,7 @@ export interface Section {
 }
 @Component({
   selector: 'app-career-details',
-  imports: [LandingSectionComponent, SafeHtmlPipe, CareerFormComponent],
+  imports: [LandingSectionComponent, SafeHtmlPipe, CareerFormComponent, StickyDirective],
   templateUrl: './career-details.component.html',
   styleUrl: './career-details.component.css'
 })
@@ -64,4 +65,5 @@ export class CareerDetailsComponent {
         });
     }
   }
+ 
 }

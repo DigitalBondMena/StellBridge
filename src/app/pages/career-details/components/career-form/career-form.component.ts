@@ -27,15 +27,15 @@ export class CareerFormComponent {
     current_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     experience: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     expected_salary: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-    cover_leter: ['', [Validators.required, Validators.minLength(3)]], // ✨ هنا نخليها نص بس
-    jop_cv: [null, [Validators.required, this.fileValidator]] // ✨ هنا يتحط الـ validator بتاع الملف
+    cover_leter: ['', [Validators.required, Validators.minLength(3)]], 
+    jop_cv: [null, [Validators.required, this.fileValidator]] 
   });
   constructor() {
-    // 🟢 effect بيربط signal بالـ formControl
     effect(() => {
       const title = this.jopTitle();
       if (title) {
         this.formData.get('jop_title')?.setValue(title);
+        this.formData.get('jop_title')?.disable();
       }
     });
   }
@@ -112,5 +112,16 @@ export class CareerFormComponent {
       }
     })
   }
+  preventInvalidKeys(event: KeyboardEvent) {
+  // Block "e", "+", "-", ".", "ArrowUp", "ArrowDown"
+  if (['e', 'E', '+', '-', '.', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+    event.preventDefault();
+  }
+}
+
+disableScroll(event: WheelEvent) {
+  (event.target as HTMLElement).blur(); // prevent changing value with mouse scroll
+}
+
 }
 

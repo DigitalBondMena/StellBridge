@@ -13,10 +13,15 @@
     class="padding-top-lg-60 padding-top-80 padding-bottom-lg-40 border-top"
   >
     <div class="max-width-1600">
-      <div class="tt-row">
-        <div class="tt-col-xl-3">
-          <div></div>
-          <div class="from">
+      <div class="tt-row main-grid">
+        <div class="tt-col-xl-3" >
+          <div 
+          class="form"
+          appSticky
+          [stickyMinWidth]="1024"
+    [stickyTop]="20"
+    [stickyContainerSelector]="'#service-details .max-width-1600'"
+          >
             @if (careerDetails()?.en_main_title) {
             <app-career-form
               [jopTitle]="careerDetails()?.en_main_title"
@@ -26,10 +31,7 @@
         </div>
 
         <div class="tt-col-xl-9 tt-align-self-center tt-anim-fadeinup">
-          <h2 style="margin-bottom: 40px">
-            {{ careerDetails()?.en_main_title }}
-            <!-- <span style="color: var(--tt-main-color)"> &amp; Identity </span> -->
-          </h2>
+          
           <div>
             <ul class="section-list">
               <li>

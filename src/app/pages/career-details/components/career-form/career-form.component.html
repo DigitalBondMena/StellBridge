@@ -16,12 +16,14 @@
         placeholder="Enter your full name"
         formControlName="name"
       />
-      @if (formData.controls.name.errors && formData.controls.name.touched) {
-      @if (formData.controls.name.errors['required']) {
-      <p class="error-message">Name is required</p>
-      } @if (formData.controls.name.errors['minlength']) {
-      <p class="error-message">Name must be at least 3 characters</p>
-      } }
+      <div class="error-messages-container">
+        @if (formData.controls.name.errors && formData.controls.name.touched) {
+        @if (formData.controls.name.errors['required']) {
+        <p class="error-message">Name is required</p>
+        } @if (formData.controls.name.errors['minlength']) {
+        <p class="error-message">Name must be at least 3 characters</p>
+        } }
+      </div>
     </div>
 
     <!-- Email -->
@@ -36,12 +38,15 @@
         placeholder="Enter your email address"
         formControlName="email"
       />
-      @if (formData.controls.email.errors && formData.controls.email.touched) {
-      @if (formData.controls.email.errors['required']) {
-      <p class="error-message">Email is required</p>
-      } @if (formData.controls.email.errors['email']) {
-      <p class="error-message">Invalid email address</p>
-      } }
+      <div class="error-messages-container">
+
+        @if (formData.controls.email.errors && formData.controls.email.touched) {
+        @if (formData.controls.email.errors['required']) {
+        <p class="error-message">Email is required</p>
+        } @if (formData.controls.email.errors['email']) {
+        <p class="error-message">Invalid email address</p>
+        } }
+      </div>
     </div>
 
     <!-- Phone -->
@@ -57,19 +62,23 @@
         </div>
         <input
           id="phone"
-          type="tel"
+          type="number"
           class="booking-form-input"
           placeholder="5XXXXXXXX"
           formControlName="phone"
+          (keydown)="preventInvalidKeys($event)"
+  (wheel)="disableScroll($event)"
         />
       </div>
+<div class="error-messages-container">
 
-      @if (formData.controls.phone.errors && formData.controls.phone.touched) {
-      @if (formData.controls.phone.errors['required']) {
-      <p class="error-message">Phone is required</p>
-      } @if (formData.controls.phone.errors['pattern']) {
-      <p class="error-message">Phone must be a valid Saudi number</p>
-      } }
+  @if (formData.controls.phone.errors && formData.controls.phone.touched) {
+  @if (formData.controls.phone.errors['required']) {
+  <p class="error-message">Phone is required</p>
+  } @if (formData.controls.phone.errors['pattern']) {
+  <p class="error-message">Phone must be a valid Saudi number</p>
+  } }
+</div>
     </div>
 
     <!-- Job Title -->
@@ -84,13 +93,16 @@
         placeholder="Enter job title"
         formControlName="jop_title"
       />
-      @if (formData.controls.jop_title.errors &&
-      formData.controls.jop_title.touched) { @if
-      (formData.controls.jop_title.errors['required']) {
-      <p class="error-message">Job title is required</p>
-      } @if (formData.controls.jop_title.errors['minlength']) {
-      <p class="error-message">Must be at least 3 characters</p>
-      } }
+      <div class="error-messages-container">
+
+        @if (formData.controls.jop_title.errors &&
+        formData.controls.jop_title.touched) { @if
+        (formData.controls.jop_title.errors['required']) {
+        <p class="error-message">Job title is required</p>
+        } @if (formData.controls.jop_title.errors['minlength']) {
+        <p class="error-message">Must be at least 3 characters</p>
+        } }
+      </div>
     </div>
 
     <!-- Current Salary -->
@@ -101,17 +113,23 @@
       <input
         id="current_salary"
         type="number"
+        min="1"
         class="booking-form-input"
         placeholder="Enter current salary"
         formControlName="current_salary"
+        (keydown)="preventInvalidKeys($event)"
+  (wheel)="disableScroll($event)"
       />
-      @if (formData.controls.current_salary.errors &&
-      formData.controls.current_salary.touched) {
-      @if(formData.controls.current_salary.errors['required']) {
-      <p class="error-message">Current salary is required</p>
-      }@else if (formData.controls.current_salary.errors['pattern']) {
-      <p class="error-message">Current salary must be a number</p>
-      } }
+      <div class="error-messages-container">
+        @if (formData.controls.current_salary.errors &&
+        formData.controls.current_salary.touched) {
+        @if(formData.controls.current_salary.errors['required']) {
+        <p class="error-message">Current salary is required</p>
+        }@else if (formData.controls.current_salary.errors['pattern']) {
+        <p class="error-message">Current salary must be a number</p>
+        } }
+
+      </div>
     </div>
 
     <!-- Experience -->
@@ -122,17 +140,23 @@
       <input
         id="experience"
         type="number"
+        min="1"
         class="booking-form-input"
         placeholder="Enter your experience"
         formControlName="experience"
+        (keydown)="preventInvalidKeys($event)"
+  (wheel)="disableScroll($event)"
       />
-      @if (formData.controls.experience.errors &&
-      formData.controls.experience.touched) { @if
-      (formData.controls.experience.errors['required']) {
-      <p class="error-message">Experience is required</p>
-      } @if (formData.controls.experience.errors['pattern']) {
-      <p class="error-message">Experience must be numeric</p>
-      } }
+      <div class="error-messages-container">
+
+        @if (formData.controls.experience.errors &&
+        formData.controls.experience.touched) { @if
+        (formData.controls.experience.errors['required']) {
+        <p class="error-message">Experience is required</p>
+        } @if (formData.controls.experience.errors['pattern']) {
+        <p class="error-message">Experience must be numeric</p>
+        } }
+      </div>
     </div>
 
     <!-- Expected Salary -->
@@ -143,17 +167,23 @@
       <input
         id="expected_salary"
         type="number"
+        min="1"
         class="booking-form-input"
         placeholder="Enter expected salary"
         formControlName="expected_salary"
+        (keydown)="preventInvalidKeys($event)"
+  (wheel)="disableScroll($event)"
       />
-      @if (formData.controls.expected_salary.errors &&
-      formData.controls.expected_salary.touched) { @if
-      (formData.controls.expected_salary.errors['required']) {
-      <p class="error-message">Expected salary is required</p>
-      } @if (formData.controls.expected_salary.errors['pattern']) {
-      <p class="error-message">Expected salary must be a number</p>
-      } }
+      <div class="error-messages-container">
+        @if (formData.controls.expected_salary.errors &&
+        formData.controls.expected_salary.touched) { @if
+        (formData.controls.expected_salary.errors['required']) {
+        <p class="error-message">Expected salary is required</p>
+        } @if (formData.controls.expected_salary.errors['pattern']) {
+        <p class="error-message">Expected salary must be a number</p>
+        } }
+
+      </div>
     </div>
 
     <!-- Cover Letter -->
@@ -167,13 +197,16 @@
         placeholder="Enter your cover letter"
         formControlName="cover_leter"
       ></textarea>
-      @if (formData.controls.cover_leter.errors &&
-      formData.controls.cover_leter.touched) { @if
-      (formData.controls.cover_leter.errors['required']) {
-      <p class="error-message">Cover letter is required</p>
-      } @if (formData.controls.cover_leter.errors['minlength']) {
-      <p class="error-message">Must be at least 3 characters</p>
-      } }
+      <div class="error-messages-container">
+
+        @if (formData.controls.cover_leter.errors &&
+        formData.controls.cover_leter.touched) { @if
+        (formData.controls.cover_leter.errors['required']) {
+        <p class="error-message">Cover letter is required</p>
+        } @if (formData.controls.cover_leter.errors['minlength']) {
+        <p class="error-message">Must be at least 3 characters</p>
+        } }
+      </div>
     </div>
 
     <!-- CV Upload -->
@@ -208,24 +241,27 @@
       </div>
 
       <!-- Error messages -->
-      <div class="error-messages">
-        @if (formData.get("jop_cv")?.errors && formData.get("jop_cv")?.dirty ) {
-        @if (formData.get("jop_cv")?.getError("required")) {
-        <p class="error-message">
-          <i class="fas fa-exclamation-circle"></i> CV is required
-        </p>
-        } @if (formData.get("jop_cv")?.getError("fileType")) {
-        <p class="error-message">
-          <i class="fas fa-exclamation-circle"></i> Only PDF or Word files are
-          allowed
-        </p>
-        } @if (formData.get("jop_cv")?.getError("fileSize")) {
-        <p class="error-message">
-          <i class="fas fa-exclamation-circle"></i> File size must not exceed
-          2MB
-        </p>
-        } }
-      </div>
+       <div class="error-messages-container">
+
+         <div class="error-messages">
+           @if (formData.get("jop_cv")?.errors && formData.get("jop_cv")?.dirty ) {
+           @if (formData.get("jop_cv")?.getError("required")) {
+           <p class="error-message">
+             <i class="fas fa-exclamation-circle"></i> CV is required
+           </p>
+           } @if (formData.get("jop_cv")?.getError("fileType")) {
+           <p class="error-message">
+             <i class="fas fa-exclamation-circle"></i> Only PDF or Word files are
+             allowed
+           </p>
+           } @if (formData.get("jop_cv")?.getError("fileSize")) {
+           <p class="error-message">
+             <i class="fas fa-exclamation-circle"></i> File size must not exceed
+             2MB
+           </p>
+           } }
+         </div>
+       </div>
     </div>
 
     <!-- Submit -->
@@ -251,10 +287,10 @@
         Your application has been submitted successfully!
       </div>
       } @if (this.submitStatus() === 'error') {
-      <div class="submit-success-message">
-        <i class="fas fa-check-circle"></i>
-        Your application has been submitted successfully!
-      </div>
+        <div class="submit-error-message">
+          <i class="fas fa-times-circle"></i>
+          has been error please tyr again
+        </div>
       }
     </div>
   </form>
