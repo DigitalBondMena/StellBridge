@@ -34,6 +34,8 @@
   font-size: 0.95rem;
   line-height: 1.6;
   color: #ccc;
+  max-height: 300px;
+  overflow-y: auto;
 }
 ::ng-deep .section-list div > * {
   text-transform: capitalize;
