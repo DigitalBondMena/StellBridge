@@ -45,7 +45,9 @@ onPageChange(page: number) {
 updatePage() {
   const start = (this.currentPage() - 1) * this.itemsPerPage;
   const end = start + this.itemsPerPage;
-  this.paginatedData.set(this.allCareers().slice(start, end));  
+  this.paginatedData.set(this.allCareers().slice(start, end)); 
+  console.log(this.paginatedData());
+   
 }
 ngOnDestroy(): void {
     this.destroy$.next();
