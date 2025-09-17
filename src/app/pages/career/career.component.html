@@ -8,7 +8,7 @@
           through this website.`"
     [id]="'projects'"
   ></app-landing-section>
-  
+@if (paginatedData().length !== 0) {
   <app-shared-career [careers]="paginatedData()"></app-shared-career>
   
   <div style="margin: 2rem 0 4rem 0">
@@ -21,4 +21,10 @@
   
     </app-client-pagination>
   </div>
+} @else {
+   <div style="background-color: #181818; min-height: 300px;font-size: 2.5rem; display:flex; align-items:center; justify-content:center;">
+    <p style="color: #fff;">No careers Available</p>
+  </div>
+}
+  
 }
