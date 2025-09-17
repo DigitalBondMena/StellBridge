@@ -42,12 +42,12 @@
 }
 
 .form {
-  width: 100%;      /* يخليها مرنة بس ما تزيدش عن 400 */
-  margin: 0 auto;   /* عشان تتوسّط */
+  width: 100%;      
+  margin: 0 auto;   
 }
 @media screen and (min-width:1024px) {
   .form {
-  max-width: 300px; /* أو أي عرض مناسب */
+  max-width: 300px; 
 }
 }
 .main-grid .tt-col-xl-3 {
