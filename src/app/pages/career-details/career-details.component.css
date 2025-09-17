@@ -1,0 +1,58 @@
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section-list li {
+  background: #222; /* غامق قريب من الخلفية */
+  border: 1px solid #2e2e2e; /* تحديد بسيط */
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #f1f1f1; /* نص فاتح */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.section-list h3 {
+  margin: 0 0 0.8rem;
+  font-size: 1.25rem;
+  color: #a01717; /* لون مميز للعناوين */
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.4rem;
+}
+
+.section-list div {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ccc;
+}
+::ng-deep .section-list div > * {
+  text-transform: capitalize;
+}
+
+.form {
+  width: 100%;      /* يخليها مرنة بس ما تزيدش عن 400 */
+  margin: 0 auto;   /* عشان تتوسّط */
+}
+@media screen and (min-width:1024px) {
+  .form {
+  max-width: 300px; /* أو أي عرض مناسب */
+}
+}
+.main-grid .tt-col-xl-3 {
+  order:1
+}
+@media screen and (min-width:1024px) {
+  .main-grid .tt-col-xl-3 {
+  order:0
+}
+}
