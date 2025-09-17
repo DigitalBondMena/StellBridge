@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contact } from '../../../contact-us/res/contact-us';
 import { ContactUsService } from '../../../contact-us/res/contact-us.service';
@@ -8,6 +8,7 @@ import { ContactUsService } from '../../../contact-us/res/contact-us.service';
   imports: [],
   templateUrl: './landing-section.component.html',
   styleUrl: './landing-section.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class LandingSectionComponent {
   @Input({ required: true }) subtitle: string = '';
@@ -15,6 +16,7 @@ export class LandingSectionComponent {
   @Input({ required: true }) title: string = '';
   @Input({ required: true }) id: string = '';
   @Input({ required: false }) imageUrl: string = '';
+  @Input({ required: false }) wrapSubTitle: boolean = false;
 
   private router = inject(Router);
 

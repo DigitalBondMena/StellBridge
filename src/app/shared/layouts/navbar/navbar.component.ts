@@ -36,6 +36,7 @@ export class NavbarComponent implements OnInit {
     { label: 'About', route: '/about-us' },
     { label: 'Services', route: '/services' },
     { label: 'Projects', route: '/projects' },
+    { label: 'Careers', route: '/career' },
     { label: 'Achievements', route: '/achievements' },
     { label: 'Contact', route: '/contact-us' },
   ];

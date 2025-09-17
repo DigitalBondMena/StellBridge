@@ -1,0 +1,9 @@
+.pag-btn {
+    background-color: white;
+    color: #374151;
+    transition: color .5s;
+;
+}
+.pag-btn:hover {
+    color: black !important;
+}
