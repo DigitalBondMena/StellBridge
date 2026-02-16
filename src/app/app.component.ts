@@ -25,6 +25,8 @@ import { LibraryLoaderService } from './services/library-loader.service';
 import { LatsConnectComponent } from './shared/components/lats-connect/lats-connect.component';
 import { FooterComponent } from './shared/layouts/footer/footer.component';
 import { NavbarComponent } from './shared/layouts/navbar/navbar.component';
+import { isFoundingDay } from './core/env';
+import { FoundingDayFloadingCircleComponent } from './shared/components/founding-day-floading-circle/founding-day-floading-circle.component';
 
 @Component({
   selector: 'app-root',
@@ -36,13 +38,14 @@ import { NavbarComponent } from './shared/layouts/navbar/navbar.component';
     FooterComponent,
     LatsConnectComponent,
     NgxSpinnerModule,
+    FoundingDayFloadingCircleComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'stellBridge';
-
+  isFoundingDay = isFoundingDay;
   private libraryLoader = inject(LibraryLoaderService);
   private platformId = inject(PLATFORM_ID);
   private cdr = inject(ChangeDetectorRef);
@@ -71,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly SCROLL_DEBOUNCE = 16; // ~60fps
 
   ngOnInit() {
+    this.initFoundingDay();
     if (isPlatformBrowser(this.platformId)) {
       // Use requestIdleCallback for non-critical initialization
       if ('requestIdleCallback' in window) {
@@ -118,7 +122,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.cleanupLibraries();
     }
   }
-
+  private initFoundingDay() {
+    if (isFoundingDay) {
+      document.body.classList.add('founding-day');
+    }
+  }
   /**
    * Cache DOM elements to avoid repeated queries
    */
@@ -127,7 +135,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.magneticElements = document.querySelectorAll('.tt-magnetic-item');
     this.scrollToTopBtn = document.querySelector('.tt-scroll-to-top');
     this.progressPath = document.querySelector(
-      '.tt-stt-progress path'
+      '.tt-stt-progress path',
     ) as SVGPathElement;
   }
 
@@ -197,7 +205,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     // Add new listener
     this.styleSwitch.addEventListener(
       'click',
-      this.handleStyleSwitch.bind(this)
+      this.handleStyleSwitch.bind(this),
     );
 
     // Animate the switch
@@ -359,7 +367,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         if (element._magneticMouseLeave) {
           element.removeEventListener(
             'mouseleave',
-            element._magneticMouseLeave
+            element._magneticMouseLeave,
           );
         }
       });
@@ -451,7 +459,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       time: number,
       from: number,
       distance: number,
-      duration: number
+      duration: number,
     ) => {
       time /= duration / 2;
       if (time < 1) return (distance / 2) * time * time * time * time + from;

@@ -42,31 +42,31 @@
             -->
             <div class="tt-sticky-testimonials tt-stte-reversed-colors">
               @for (testimonial of allTestimonials(); track testimonial.job) {
-              <div class="tt-stte-item" #ttStteItem>
-                <div class="tt-stte-card cursor-alter" #ttStteCard>
-                  <div
-                    style="color: var(--tt-main-color)"
-                    class="tt-stte-card-counter"
-                  ></div>
-                  <div class="tt-stte-card-caption">
+                <div class="tt-stte-item" #ttStteItem>
+                  <div class="tt-stte-card cursor-alter" #ttStteCard>
                     <div
-                      [innerHTML]="testimonial.text | safeHtml"
-                      class="tt-stte-text"
+                      style="color: var(--tt-main-color)"
+                      class="tt-stte-card-counter"
                     ></div>
-                    <div class="tt-stte-subtext">
-                      <a
-                        href="https://themetorium.net/"
-                        class="tt-link"
-                        target="_blank"
-                        rel="noopener"
-                        >{{ testimonial.job }}</a
-                      >
+                    <div class="tt-stte-card-caption">
+                      <div
+                        [innerHTML]="testimonial.text | safeHtml"
+                        class="tt-stte-text"
+                      ></div>
+                      <div class="tt-stte-subtext">
+                        <a
+                          href="https://themetorium.net/"
+                          class="tt-link"
+                          target="_blank"
+                          rel="noopener"
+                          >{{ testimonial.job }}</a
+                        >
+                      </div>
                     </div>
+                    <!-- /.tt-stte-card-caption -->
                   </div>
-                  <!-- /.tt-stte-card-caption -->
+                  <!-- /.tt-stte-card -->
                 </div>
-                <!-- /.tt-stte-card -->
-              </div>
               }
             </div>
             <!-- End sticky testimonials  -->

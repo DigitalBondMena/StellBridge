@@ -19,6 +19,7 @@ import {
   Testimonial,
 } from './res/home';
 import { HomeService } from './res/home.service';
+import { isFoundingDay } from '../../core/env';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,7 @@ import { HomeService } from './res/home.service';
 })
 export class HomeComponent implements OnInit {
   homeService = inject(HomeService);
-
+  isFoundingDay = isFoundingDay;
   contactService = inject(ContactUsService);
 
   slider = signal<Slider>({} as Slider);

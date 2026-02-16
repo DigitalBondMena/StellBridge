@@ -10,11 +10,95 @@
 
 /* Missing Mobile Menu Visibility Fix */
 /* ================================== */
+.founding-day-animate-circle {
+  position: absolute;
+  top: 50%;
+  transform: translateX(20%);
+  right: 0;
+  object-fit: cover;
+  animation: circleSpin 10s ease-in-out forwards infinite;
+  &.left-circle {
+    right: auto;
+    left: 0;
+    animation: circleSpinLeft 10s ease-in-out forwards infinite;
+  }
+  .about-ceo-section {
+  }
+}
+@keyframes circleSpin {
+  0% {
+    transform: translate(50%, -50%) rotate(0deg);
+  }
+  20% {
+    transform: translate(50%, -50%) rotate(-360deg);
+  }
+  40% {
+    transform: translate(50%, -50%) rotate(-720deg);
+  }
+  60% {
+    transform: translate(50%, -50%) rotate(-1080deg);
+  }
 
+  80% {
+    transform: translate(50%, -50%) rotate(-1440deg);
+  }
+
+  100% {
+    transform: translate(50%, -50%) rotate(0deg);
+  }
+}
+@keyframes circleSpinLeft {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  20% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) rotate(720deg);
+  }
+  60% {
+    transform: translate(-50%, -50%) rotate(1080deg);
+  }
+
+  80% {
+    transform: translate(-50%, -50%) rotate(1440deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+.founding-day {
+  .founding-bg {
+    mix-blend-mode: color-burn;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 124px;
+    height: 100%;
+    max-height: 1326px;
+    object-fit: cover;
+    &.left-bg {
+      right: auto;
+      left: 0;
+    }
+    &.projects-bg {
+      top: -12%;
+    }
+    &.testimonials-bg {
+      top: 33% !important;
+    }
+  }
+}
 @media (max-width: 1024px) {
   /* Add smooth transition to mobile menu */
   .tt-main-menu {
-    transition: visibility 0.3s ease, opacity 0.3s ease !important;
+    transition:
+      visibility 0.3s ease,
+      opacity 0.3s ease !important;
   }
 
   /* Show mobile menu when body has tt-m-menu-open class */

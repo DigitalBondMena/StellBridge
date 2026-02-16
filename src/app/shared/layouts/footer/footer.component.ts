@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Contact } from '../../../pages/contact-us/res/contact-us';
 import { ContactUsService } from '../../../pages/contact-us/res/contact-us.service';
+import { isFoundingDay } from '../../../core/env';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +12,7 @@ import { ContactUsService } from '../../../pages/contact-us/res/contact-us.servi
 })
 export class FooterComponent {
   private contactUs = inject(ContactUsService);
-
+  isFoundingDay = isFoundingDay;
   socialLinks = signal<Contact>({} as Contact);
 
   ngOnInit(): void {

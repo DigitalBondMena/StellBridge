@@ -1,7 +1,9 @@
 /* ================================================
  * Testimonials Section Component - Black & White Theme
  * ============================================== */
-
+.tt-section {
+  position: relative;
+}
 .testimonials-section {
   padding: 100px 0;
   background-color: var(--tt-bg-color, #ffffff);
@@ -629,4 +631,7 @@
   .testimonial-card:hover {
     transform: none;
   }
+}
+.tt-stte-item {
+  z-index: 12;
 }

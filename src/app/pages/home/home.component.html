@@ -1,15 +1,83 @@
 <div id="tt-page-content ">
   <app-hero [slider]="slider()"></app-hero>
-  <app-about-ceo [aboutHome]="aboutHome()"></app-about-ceo>
-  <app-about-sbc [aboutHome]="aboutHome()"></app-about-sbc>
-  @defer (on idle) { @if (clients().length > 2) {
-  <app-clients [clients]="clients()"></app-clients>
-  } }
+  @if (isFoundingDay) {
+    <section class="tt-section">
+      <div class="tt-section-inner tt-wrap">
+        <img
+          src="/img/home/founding-day-section.png"
+          alt="from solid foundations"
+          height="244"
+        />
+      </div>
+    </section>
+  }
+  <div class="position-relative about-ceo-section">
+    @if (isFoundingDay) {
+      <img
+        src="/img/founding-day-animate-circle.png"
+        alt=""
+        class="founding-day-animate-circle left-circle"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+    <app-about-ceo [aboutHome]="aboutHome()"></app-about-ceo>
+  </div>
+  <div class="position-relative">
+    @if (isFoundingDay) {
+      <img
+        src="/img/founding-day-animate-circle.png"
+        alt=""
+        class="founding-day-animate-circle"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+    <app-about-sbc [aboutHome]="aboutHome()"></app-about-sbc>
+  </div>
+  @defer (on idle) {
+    @if (clients().length > 2) {
+      <app-clients [clients]="clients()"></app-clients>
+    }
+  }
   <app-services [services]="services"></app-services>
-  <app-projects [projects]="projects()"></app-projects>
+  <div class="position-relative">
+    @if (isFoundingDay) {
+      <img
+        src="/img/founding-day-bg.png"
+        alt=""
+        class="founding-bg projects-bg"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+    <app-projects [projects]="projects()"></app-projects>
+  </div>
   <app-tt-scrolling-text-crossed></app-tt-scrolling-text-crossed>
-  <app-testimonials [allTestimonials]="testimonials()"></app-testimonials>
-  <app-contact-us-alternate
-    [contactUs]="contactUs()"
-  ></app-contact-us-alternate>
+  <div class="position-relative">
+    @if (isFoundingDay) {
+      <img
+        src="/img/founding-day-bg.png"
+        alt=""
+        class="founding-bg left-bg testimonials-bg"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+    <app-testimonials [allTestimonials]="testimonials()"></app-testimonials>
+  </div>
+  <div class="position-relative">
+    @if (isFoundingDay) {
+      <img
+        src="/img/founding-day-bg.png"
+        alt=""
+        class="founding-bg contact-bg"
+        loading="lazy"
+        decoding="async"
+      />
+    }
+    <app-contact-us-alternate
+      [contactUs]="contactUs()"
+    ></app-contact-us-alternate>
+  </div>
 </div>

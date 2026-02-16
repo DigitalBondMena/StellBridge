@@ -1,3 +1,7 @@
+.tt-section {
+  position: relative;
+  z-index: 2;
+}
 .main-button-service {
   background: var(--tt-main-color, #a01717);
   color: #ffffff !important;
